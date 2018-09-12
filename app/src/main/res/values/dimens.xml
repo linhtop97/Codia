@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="divider_line">1px</dimen>
+    <dimen name="dp_0">0dp</dimen>
+    <dimen name="list_scrollbarSize">4dp</dimen>
+</resources>
