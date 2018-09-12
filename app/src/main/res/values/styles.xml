@@ -1,0 +1,52 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="android:windowBackground">@android:color/white</item>
+
+        <item name="colorControlNormal">@color/colorAccent</item>
+        <item name="colorControlActivated">@color/colorPrimaryLight</item>
+
+    </style>
+
+    <style name="MyTheme" parent="AppTheme"/>
+
+    <!-- Widget -->
+
+    <style name="MyTheme.Widget"/>
+
+    <!-- Widget - Divider -->
+
+    <style name="MyTheme.Widget.Divider">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:background">@color/colorDivider</item>
+    </style>
+
+    <style name="MyTheme.Widget.Divider.Line">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="MyTheme.Widget.Divider.Line.Vertical">
+        <item name="android:layout_height">@dimen/divider_line</item>
+    </style>
+
+    <style name="MyTheme.Widget.Divider.Line.Horizontal">
+        <item name="android:layout_width">@dimen/divider_line</item>
+    </style>
+
+    <style name="MyTheme.Widget.RecyclerView">
+        <item name="android:layout_width">@dimen/dp_0</item>
+        <item name="android:layout_height">@dimen/dp_0</item>
+        <item name="android:scrollbars">vertical</item>
+        <item name="android:scrollbarThumbVertical">@color/colorDivider</item>
+        <item name="android:scrollbarSize">@dimen/list_scrollbarSize</item>
+    </style>
+
+</resources>
