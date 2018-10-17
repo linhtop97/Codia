@@ -1,33 +1,46 @@
 package com.example.myteam.codia.screen.authentication.login;
 
+import android.content.Intent;
+
 import com.example.myteam.codia.screen.base.BasePresenter;
 import com.example.myteam.codia.screen.base.BaseViewModel;
+import com.google.firebase.auth.FirebaseUser;
 
 /**
  * This specifies the contract between the view and the presenter.
  */
 public class LoginContract {
     interface ViewModel extends BaseViewModel<Presenter> {
-        void onLoginError(String msg);
+        void onRegisterClick();
 
-        void onLoginSuccess();
+        void showDialog();
 
-        void onInputUserNameError();
+        void dismissDialog();
 
-        void onInputPasswordError();
+        void onGetCurrentUserError(String message);
 
-        void showProgressbar();
+        void onGetUserSuccessful(FirebaseUser firebaseUser);
 
-        void hideProgressbar();
+        void onLoginError(String message);
 
-        void onCachedAccountLoaded(String user, String passWord);
+        void onLoginClick();
 
-        boolean isRememberAccount();
+        void onForgotPasswordClick();
+
+        void onInputError(int message);
+
+        void onActivityResult(int requestCode, int resultCode, Intent data);
+
+        void onGetLastEmail(String s);
+
+        void onGetLastPassword(String s);
+
+        void onGetIsRememberAccount(Boolean b);
     }
 
     interface Presenter extends BasePresenter {
-        void login(String userName, String passWord);
+        void login(String userName, String passWord, boolean isRememberAccount);
 
-        boolean validateDataInput(String username, String password);
+        boolean validateDataInput(String email, String password);
     }
 }
