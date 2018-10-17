@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "274032035589",
+    "firebase_url": "https://codia-4b3f5.firebaseio.com",
+    "project_id": "codia-4b3f5",
+    "storage_bucket": "codia-4b3f5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:274032035589:android:30f1d9ce11b491ec",
+        "android_client_info": {
+          "package_name": "com.example.myteam.codia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "274032035589-v5gufffpvp7kd4qon42sq1b6jnnompia.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNHTuyw3rB2MuwzHt6Re8IBVTxzpgum6A"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

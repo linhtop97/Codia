@@ -7,10 +7,12 @@ import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
+import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.util.Patterns;
+import android.widget.Toast;
 
 import com.example.myteam.codia.R;
 
@@ -30,7 +32,7 @@ public class Navigator {
         mActivity = fragment.getActivity();
     }
 
-    private void startActivity(@NonNull Intent intent) {
+    public void startActivity(@NonNull Intent intent) {
         mActivity.startActivity(intent);
         setActivityTransactionAnimation(ActivityTransition.START);
     }
@@ -152,6 +154,16 @@ public class Navigator {
                 break;
             default:
                 break;
+        }
+    }
+
+    public void showToast(@StringRes int stringId) {
+        Toast.makeText(mActivity, mActivity.getString(stringId) + "", Toast.LENGTH_SHORT).show();
+    }
+
+    public void showToast(String message) {
+        if (message != null) {
+            Toast.makeText(mActivity, message, Toast.LENGTH_SHORT).show();
         }
     }
 

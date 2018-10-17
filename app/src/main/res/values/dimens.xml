@@ -3,4 +3,11 @@
     <dimen name="divider_line">1px</dimen>
     <dimen name="dp_0">0dp</dimen>
     <dimen name="list_scrollbarSize">4dp</dimen>
+    <dimen name="dp_256">256dp</dimen>
+    <dimen name="dp_128">128dp</dimen>
+    <dimen name="dp_64">64dp</dimen>
+    <dimen name="dp_48">48dp</dimen>
+    <dimen name="dp_4">4dp</dimen>
+    <dimen name="dp_24">24dp</dimen>
+    <dimen name="dp_16">16dp</dimen>
 </resources>

@@ -1,3 +1,14 @@
 <resources>
-    <string name="app_name">AndroidCore</string>
+    <string name="app_name">Codia</string>
+    <string name="signup">New member?<u> Sign up</u></string>
+    <string name="forgotpw">Forgot password?</string>
+    <string name="msg_loading">Loading…</string>
+    <string name="is_empty">Empty, Please enter the data!</string>
+    <string name="invalid_email_format">Invalid Email format</string>
+    <string name="least_6_characters">Please enter at least 6 characters!</string>
+    <string name="keep_me_sign_in">keep me sign in</string>
+    <string name="sign_in">Sign in</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="dang_nhap_thanh_cong">Đăng nhập thành công</string>
 </resources>

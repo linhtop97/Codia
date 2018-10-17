@@ -2,14 +2,162 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
         <variable
             name="viewModel"
-            type="com.example.myteam.codia.screen.authentication.login.LoginViewModel"/>
+            type="com.example.myteam.codia.screen.authentication.login.LoginViewModel" />
     </data>
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/login_activity"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:focusableInTouchMode="true">
+
+        <ImageView
+            android:id="@+id/img_app"
+            android:layout_width="@dimen/dp_256"
+            android:layout_height="@dimen/dp_128"
+            android:layout_marginTop="@dimen/dp_64"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_app"
+            bind:layout_constraintBottom_toTopOf="@id/email_container"
+            bind:layout_constraintLeft_toLeftOf="parent"
+            bind:layout_constraintRight_toRightOf="parent"
+            bind:layout_constraintTop_toTopOf="parent" />
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/email_container"
+            android:layout_width="@dimen/dp_256"
+            android:layout_height="@dimen/dp_48"
+            android:layout_marginTop="@dimen/dp_64"
+            android:background="@drawable/custom_edit"
+            android:padding="@dimen/dp_4"
+            bind:layout_constraintLeft_toLeftOf="parent"
+            bind:layout_constraintRight_toRightOf="parent"
+            bind:layout_constraintTop_toBottomOf="@id/img_app">
+
+            <EditText
+                android:id="@+id/text_email"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="@dimen/dp_0"
+                android:background="@null"
+                android:hint="@string/email"
+                android:inputType="textEmailAddress"
+                android:maxLength="@integer/max_input"
+                android:padding="@dimen/dp_4"
+                android:text="@={viewModel.email}"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white"
+                bind:layout_constraintBottom_toBottomOf="parent"
+                bind:layout_constraintLeft_toLeftOf="parent"
+                bind:layout_constraintRight_toLeftOf="@id/clear_email_button"
+                bind:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/clear_email_button"
+                android:layout_width="@dimen/dp_24"
+                android:layout_height="@dimen/dp_24"
+                android:background="@drawable/ic_exit"
+                android:visibility="gone"
+                bind:layout_constraintBottom_toBottomOf="parent"
+                bind:layout_constraintRight_toRightOf="parent"
+                bind:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/password_container"
+            android:layout_width="@dimen/dp_256"
+            android:layout_height="@dimen/dp_48"
+            android:layout_marginTop="@dimen/dp_16"
+            android:background="@drawable/custom_edit"
+            android:padding="@dimen/dp_4"
+            bind:layout_constraintLeft_toLeftOf="parent"
+            bind:layout_constraintRight_toRightOf="parent"
+            bind:layout_constraintTop_toBottomOf="@id/email_container">
+
+            <EditText
+                android:id="@+id/text_password"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="@dimen/dp_0"
+                android:background="@null"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:maxLength="@integer/max_input"
+                android:padding="@dimen/dp_4"
+                android:text="@={viewModel.password}"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white"
+                bind:layout_constraintBottom_toBottomOf="parent"
+                bind:layout_constraintLeft_toLeftOf="parent"
+                bind:layout_constraintRight_toLeftOf="@id/clear_pw_button"
+                bind:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/clear_pw_button"
+                android:layout_width="@dimen/dp_24"
+                android:layout_height="@dimen/dp_24"
+                android:background="@drawable/ic_exit"
+                android:padding="@dimen/dp_4"
+                android:visibility="gone"
+                bind:layout_constraintBottom_toBottomOf="parent"
+                bind:layout_constraintLeft_toRightOf="@id/text_password"
+                bind:layout_constraintRight_toRightOf="parent"
+                bind:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
+
+        <Button
+            android:id="@+id/sign_in_button"
+            android:layout_width="@dimen/dp_256"
+            android:layout_height="@dimen/dp_48"
+            android:layout_marginTop="@dimen/dp_16"
+            android:background="@drawable/custom_button"
+            android:padding="@dimen/dp_4"
+            android:text="@string/sign_in"
+            android:textAllCaps="false"
+            android:textColor="@android:color/black"
+            bind:layout_constraintLeft_toLeftOf="parent"
+            bind:layout_constraintRight_toRightOf="parent"
+            bind:layout_constraintTop_toBottomOf="@id/password_container" />
+
+        <CheckBox
+            android:id="@+id/remember_chk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_24"
+            android:button="@drawable/cb_selector"
+            android:checked="@={viewModel.rememberAccount}"
+            android:text="@string/keep_me_sign_in"
+            android:textColor="@android:color/white"
+            bind:layout_constraintBottom_toTopOf="@id/text_sign_up"
+            bind:layout_constraintLeft_toLeftOf="@id/sign_in_button"
+            bind:layout_constraintTop_toBottomOf="@id/sign_in_button" />
+
+        <TextView
+            android:id="@+id/text_sign_up"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_48"
+            android:text="@string/signup"
+            android:textColor="@android:color/white"
+            bind:layout_constraintBottom_toTopOf="@id/text_forgot_password"
+            bind:layout_constraintLeft_toLeftOf="parent"
+            bind:layout_constraintRight_toRightOf="parent"
+            bind:layout_constraintTop_toBottomOf="@id/remember_chk" />
+
+        <TextView
+            android:id="@+id/text_forgot_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp_24"
+            android:layout_marginTop="@dimen/dp_16"
+            android:text="@string/forgotpw"
+            android:textColor="@android:color/white"
+            bind:layout_constraintLeft_toLeftOf="parent"
+            bind:layout_constraintRight_toRightOf="parent"
+            bind:layout_constraintTop_toBottomOf="@id/text_sign_up" />
     </android.support.constraint.ConstraintLayout>
 </layout>
