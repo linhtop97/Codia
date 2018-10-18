@@ -33,16 +33,15 @@ public class LoginPresenter implements LoginContract.Presenter {
             @Override
             public void onGetDataSuccess(FirebaseUser data) {
                 mViewModel.onGetUserSuccessful(data);
-                mViewModel.onInputError(R.string.dang_nhap_thanh_cong);
                 mViewModel.dismissDialog();
                 if (isRememberAccount) {
+                    mSharedPrefs.put(PREF_KEEP_LOGIN, isRememberAccount);
                     mSharedPrefs.put(PREF_EMAIL, email);
                     mSharedPrefs.put(PREF_PASSWORD, password);
                 } else {
                     mSharedPrefs.put(PREF_EMAIL, "");
                     mSharedPrefs.put(PREF_PASSWORD, "");
                 }
-                mSharedPrefs.put(PREF_KEEP_LOGIN, isRememberAccount);
             }
 
             @Override
@@ -55,25 +54,28 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     @Override
     public boolean validateDataInput(String email, String password) {
-        boolean isValid = true;
         if (TextUtils.isEmpty(email)) {
-            isValid = false;
-            mViewModel.onInputError(R.string.is_empty);
+            mViewModel.onInputError(R.string.email_is_empty);
+            return false;
         }
         if (TextUtils.isEmpty(password)) {
-            isValid = false;
-            mViewModel.onInputError(R.string.is_empty);
+            mViewModel.onInputError(R.string.password_is_empty);
+            return false;
         }
         if (!TextUtils.isEmpty(email) && !email.matches(Constant.EMAIL_FORMAT)) {
-            isValid = false;
             mViewModel.onInputError(R.string.invalid_email_format);
+            return false;
         }
         if (!TextUtils.isEmpty(password)
                 && password.length() < Constant.MINIMUM_CHARACTERS_PASSWORD) {
-            isValid = false;
             mViewModel.onInputError(R.string.least_6_characters);
+            return false;
         }
-        return isValid;
+        if (!TextUtils.isEmpty(password) && !password.matches(Constant.PASSWORD_FORMAT)) {
+            mViewModel.onInputError(R.string.invalid_password_format);
+            return false;
+        }
+        return true;
     }
 
     @Override
@@ -85,6 +87,7 @@ public class LoginPresenter implements LoginContract.Presenter {
             mViewModel.onLoginClick();
         }
     }
+
     @Override
     public void onStop() {
 

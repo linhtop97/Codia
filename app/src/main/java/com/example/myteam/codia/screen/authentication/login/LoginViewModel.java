@@ -2,13 +2,12 @@ package com.example.myteam.codia.screen.authentication.login;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
-import android.widget.ImageView;
 
 import com.example.myteam.codia.BR;
 import com.example.myteam.codia.R;
+import com.example.myteam.codia.screen.authentication.register.RegisterActivity;
 import com.example.myteam.codia.screen.main.MainActivity;
 import com.example.myteam.codia.utils.navigator.Navigator;
 import com.google.firebase.auth.FirebaseUser;
@@ -19,17 +18,12 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
     private Context mContext;
     private Navigator mNavigator;
     private ProgressDialog mDialog;
-    private ImageView mImageView;
     private String mEmail;
     private String mPassword;
-    private String mEmailError;
-    private String mPasswordError;
     private boolean mIsRememberAccount;
-    private LoginActivity mActivity;
 
-    LoginViewModel(Context context, Navigator navigator) {
+    public LoginViewModel(Context context, Navigator navigator) {
         mContext = context;
-        mActivity = (LoginActivity) context;
         mNavigator = navigator;
         mDialog = new ProgressDialog(context);
         mDialog.setMessage(context.getString(R.string.msg_loading));
@@ -37,7 +31,7 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
 
     @Override
     public void onRegisterClick() {
-
+        mNavigator.startActivityForResult(RegisterActivity.getInstance(mContext), LoginActivity.REQUEST_CODE);
     }
 
     @Override
@@ -89,11 +83,6 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-    }
-
-    @Override
     public void onGetLastEmail(String s) {
         setEmail(s);
     }
@@ -138,16 +127,6 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
         return mIsRememberAccount;
     }
 
-    @Bindable
-    public String getEmailError() {
-        return mEmailError;
-    }
-
-    @Bindable
-    public String getPasswordError() {
-        return mPasswordError;
-    }
-
     public void setEmail(String email) {
         mEmail = email;
         notifyPropertyChanged(BR.email);
@@ -161,25 +140,5 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
     public void setRememberAccount(boolean rememberAccount) {
         mIsRememberAccount = rememberAccount;
         notifyPropertyChanged(BR.rememberAccount);
-    }
-
-    public void setEmailError(String emailError) {
-        mEmailError = emailError;
-        notifyPropertyChanged(BR.emailError);
-    }
-
-    public void setPasswordError(String passwordError) {
-        mPasswordError = passwordError;
-        notifyPropertyChanged(BR.passwordError);
-    }
-
-    @Bindable
-    public ImageView getImageView() {
-        return mImageView;
-    }
-
-    public void setImageView(ImageView imageView) {
-        mImageView = imageView;
-        notifyPropertyChanged(BR.imageView);
     }
 }

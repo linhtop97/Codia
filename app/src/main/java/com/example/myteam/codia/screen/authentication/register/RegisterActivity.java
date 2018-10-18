@@ -1,12 +1,12 @@
-package com.example.myteam.codia.screen.authentication.login;
+package com.example.myteam.codia.screen.authentication.register;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Build;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -17,33 +17,25 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ImageButton;;
+import android.widget.ImageButton;
 
 import com.example.myteam.codia.R;
 import com.example.myteam.codia.data.source.local.sharedprf.SharedPrefsImpl;
 import com.example.myteam.codia.data.source.remote.auth.AuthenicationRemoteDataSource;
 import com.example.myteam.codia.data.source.remote.auth.AuthenicationRepository;
-import com.example.myteam.codia.databinding.ActivityLoginBinding;
+import com.example.myteam.codia.databinding.ActivityRegisterBinding;
+import com.example.myteam.codia.screen.authentication.login.LoginActivity;
 import com.example.myteam.codia.utils.navigator.Navigator;
 
-import static com.example.myteam.codia.data.source.local.sharedprf.SharedPrefsKey.PREF_EMAIL_REGISTER;
-import static com.example.myteam.codia.data.source.local.sharedprf.SharedPrefsKey.PREF_KEEP_LOGIN;
-import static com.example.myteam.codia.data.source.local.sharedprf.SharedPrefsKey.PREF_PASSWORD_REGISTER;
-
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
-    private LoginContract.ViewModel mViewModel;
-    public static final int WIDTH_MIN_IMG = 200;
-    public static final int WIDTH_MAX_IMG = 256;
-    public static final int HEIGHT_MIN_IMG = 100;
-    public static final int HEIGHT_MAX_IMG = 128;
-    private ActivityLoginBinding binding;
+public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
+    private RegisterContract.ViewModel mViewModel;
+    private ActivityRegisterBinding binding;
     private SharedPrefsImpl mSharedPrefs;
-    public static final int REQUEST_CODE = 1000;
+    public static final int REQUEST_CODE = 1;
 
     public static Intent getInstance(Context context) {
-        return new Intent(context, LoginActivity.class);
+        return new Intent(context, RegisterActivity.class);
     }
 
     @Override
@@ -53,27 +45,23 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             Window w = getWindow();
             w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         }
-        mViewModel = new LoginViewModel(this, new Navigator(this));
+        mViewModel = new RegisterViewModel(this, new Navigator(this));
         mSharedPrefs = new SharedPrefsImpl(this);
         AuthenicationRepository repository =
                 new AuthenicationRepository(new AuthenicationRemoteDataSource());
-        LoginContract.Presenter presenter =
-                new LoginPresenter(mViewModel, repository, mSharedPrefs);
+        RegisterContract.Presenter presenter =
+                new RegisterPresenter(mViewModel, repository, mSharedPrefs);
         mViewModel.setPresenter(presenter);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
-        binding.setViewModel((LoginViewModel) mViewModel);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_register);
+        binding.setViewModel((RegisterViewModel) mViewModel);
+        binding.signUpButton.setOnClickListener(this);
         binding.clearPwButton.setOnClickListener(this);
+        binding.clearDisplayButton.setOnClickListener(this);
         binding.clearEmailButton.setOnClickListener(this);
-        binding.signInButton.setOnClickListener(this);
-        binding.textSignUp.setOnClickListener(this);
-        binding.rememberChk.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                mSharedPrefs.put(PREF_KEEP_LOGIN, isChecked);
-            }
-        });
         setUiOnFocusEditText(binding.textEmail, binding.clearEmailButton);
         setUiOnFocusEditText(binding.textPassword, binding.clearPwButton);
+        setUiOnFocusEditText(binding.textDisplayName, binding.clearDisplayButton);
+        //hide keybroad when click enter on keybroad on pw field
         binding.textPassword.setOnKeyListener(new View.OnKeyListener() {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (event.getAction() == KeyEvent.ACTION_DOWN) {
@@ -90,12 +78,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         });
     }
 
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        hideSoftKeyboard();
+        return true;
+    }
+
+    //control UI when enter input data
     public void setUiOnFocusEditText(final EditText editText, final ImageButton imageButton) {
         editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    setSizeIconApp(WIDTH_MIN_IMG, HEIGHT_MIN_IMG);
+                    setSizeIconApp(LoginActivity.WIDTH_MIN_IMG, LoginActivity.HEIGHT_MIN_IMG);
                     if (!TextUtils.isEmpty(editText.getText())) {
                         imageButton.setVisibility(View.VISIBLE);
                     }
@@ -127,31 +122,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        mViewModel.onStart();
-    }
-
-    @Override
-    protected void onStop() {
-        mViewModel.onStop();
-        super.onStop();
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        hideSoftKeyboard();
-        return true;
-    }
-
     public void hideSoftKeyboard() {
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.
                 INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
-        setSizeIconApp(WIDTH_MAX_IMG, HEIGHT_MAX_IMG);
+        setSizeIconApp(LoginActivity.WIDTH_MAX_IMG, LoginActivity.HEIGHT_MAX_IMG);
         binding.textPassword.clearFocus();
         binding.textEmail.clearFocus();
+        binding.textDisplayName.clearFocus();
     }
 
     private void setSizeIconApp(int width, int height) {
@@ -171,10 +149,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.clear_pw_button:
                 binding.textPassword.setText("");
                 break;
-            case R.id.sign_in_button:
-                mViewModel.onLoginClick();
+            case R.id.clear_display_button:
+                binding.textDisplayName.setText("");
                 break;
-            case R.id.text_sign_up:
+            case R.id.sign_up_button:
                 mViewModel.onRegisterClick();
                 break;
         }
@@ -185,11 +163,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
-                //login execute
-                binding.textEmail.setText(mSharedPrefs.get(PREF_EMAIL_REGISTER, String.class));
-                binding.textPassword.setText(mSharedPrefs.get(PREF_PASSWORD_REGISTER, String.class));
-                mViewModel.onLoginClick();
-
+                //comback Login Activity
+                setResult(Activity.RESULT_OK);
+                finish();
             }
         }
     }
