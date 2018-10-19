@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 
 public class SharedPrefsImpl implements SharedPrefsApi {
 
-    private static final String PREFS_NAME = "AndroidCore";
+    private static final String PREFS_NAME = "Codia";
 
     private SharedPreferences mSharedPreferences;
 

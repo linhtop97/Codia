@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/register_fragment">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.myteam.codia.screen.authentication.confirm.RegisterConfirmViewModel" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:focusableInTouchMode="true">
+
+        <ImageView
+            android:id="@+id/img_app"
+            android:layout_width="@dimen/dp_256"
+            android:layout_height="@dimen/dp_128"
+            android:layout_marginTop="@dimen/dp_64"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_app"
+            bind:layout_constraintLeft_toLeftOf="parent"
+            bind:layout_constraintRight_toRightOf="parent"
+            bind:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_notifi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_48"
+            android:width="@dimen/dp_256"
+            android:text="Please check email to get code and confirm to register account!"
+            android:textColor="@android:color/white"
+            bind:layout_constraintLeft_toLeftOf="parent"
+            bind:layout_constraintRight_toRightOf="parent"
+            bind:layout_constraintTop_toBottomOf="@id/img_app" />
+
+        <EditText
+            android:id="@+id/text_code"
+            android:layout_width="@dimen/dp_128"
+            android:layout_height="@dimen/dp_48"
+            android:layout_marginTop="@dimen/dp_32"
+            android:background="@drawable/custom_edit"
+            android:inputType="phone"
+            android:maxLength="4"
+            android:hint="@string/enter_code"
+            android:padding="@dimen/dp_4"
+            android:text="@={viewModel.code}"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            bind:layout_constraintLeft_toLeftOf="parent"
+            bind:layout_constraintRight_toRightOf="parent"
+            bind:layout_constraintTop_toBottomOf="@id/text_notifi" />
+
+        <Button
+            android:id="@+id/confirm_button"
+            android:layout_width="@dimen/dp_128"
+            android:layout_height="@dimen/dp_32"
+            android:layout_marginTop="@dimen/dp_32"
+            android:textColorHint="@android:color/darker_gray"
+            android:background="@drawable/custom_button"
+            android:onClick="@{()->viewModel.confirmClick()}"
+            android:padding="@dimen/dp_4"
+            android:text="@string/confirm"
+            android:textAllCaps="false"
+            android:textColor="@android:color/black"
+            bind:layout_constraintLeft_toLeftOf="parent"
+            bind:layout_constraintRight_toRightOf="parent"
+            bind:layout_constraintTop_toBottomOf="@id/text_code" />
+    </android.support.constraint.ConstraintLayout>
+</layout>

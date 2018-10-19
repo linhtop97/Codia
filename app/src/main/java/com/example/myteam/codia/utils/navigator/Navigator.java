@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.widget.Toast;
@@ -19,17 +20,17 @@ import com.example.myteam.codia.R;
 public class Navigator {
 
     @NonNull
-    private Activity mActivity;
+    private AppCompatActivity mActivity;
     @NonNull
     private Fragment mFragment;
 
     public Navigator(@NonNull Activity activity) {
-        mActivity = activity;
+        mActivity = (AppCompatActivity) activity;
     }
 
     public Navigator(@NonNull Fragment fragment) {
         mFragment = fragment;
-        mActivity = fragment.getActivity();
+        mActivity = (AppCompatActivity) fragment.getActivity();
     }
 
     public void startActivity(@NonNull Intent intent) {
@@ -60,7 +61,7 @@ public class Navigator {
     }
 
     public void startActivityForResult(@NonNull Class<? extends Activity> clazz, Bundle args,
-            int requestCode) {
+                                       int requestCode) {
         Intent intent = new Intent(mActivity, clazz);
         intent.putExtras(args);
         startActivityForResult(intent, requestCode);
@@ -85,14 +86,23 @@ public class Navigator {
     }
 
     // Fragment
-
+    public void addFragment(@IdRes int containerViewId, Fragment fragment,
+                                    boolean addToBackStack, int animation, String tag) {
+        FragmentTransaction transaction = mActivity.getSupportFragmentManager().beginTransaction();
+        setFragmentTransactionAnimation(transaction, animation);
+        if (addToBackStack) {
+            transaction.addToBackStack(fragment.getClass().getSimpleName());
+        }
+        transaction.add(containerViewId,fragment, tag);
+        transaction.commit();
+    }
     /**
      * Go to next fragment which nested inside current fragment
      *
      * @param fragment new child fragment
      */
     public void goNextChildFragment(@IdRes int containerViewId, Fragment fragment,
-            boolean addToBackStack, int animation, String tag) {
+                                    boolean addToBackStack, int animation, String tag) {
         FragmentTransaction transaction = mFragment.getChildFragmentManager().beginTransaction();
         setFragmentTransactionAnimation(transaction, animation);
         if (addToBackStack) {
@@ -117,7 +127,7 @@ public class Navigator {
     }
 
     private void setFragmentTransactionAnimation(FragmentTransaction transaction,
-            @NavigateAnim int animation) {
+                                                 @NavigateAnim int animation) {
         switch (animation) {
             case NavigateAnim.FADED:
                 transaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out,
@@ -171,7 +181,7 @@ public class Navigator {
             NavigateAnim.RIGHT_LEFT, NavigateAnim.BOTTOM_UP, NavigateAnim.FADED, NavigateAnim.NONE,
             NavigateAnim.LEFT_RIGHT
     })
-    @interface NavigateAnim {
+    public @interface NavigateAnim {
         int NONE = 0x00;
         int RIGHT_LEFT = 0x01;
         int BOTTOM_UP = 0x02;
@@ -179,8 +189,8 @@ public class Navigator {
         int LEFT_RIGHT = 0x04;
     }
 
-    @IntDef({ ActivityTransition.NONE, ActivityTransition.START, ActivityTransition.FINISH })
-    @interface ActivityTransition {
+    @IntDef({ActivityTransition.NONE, ActivityTransition.START, ActivityTransition.FINISH})
+    public @interface ActivityTransition {
         int NONE = 0x00;
         int START = 0x01;
         int FINISH = 0x02;
