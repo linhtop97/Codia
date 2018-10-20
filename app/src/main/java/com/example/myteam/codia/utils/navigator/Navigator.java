@@ -93,7 +93,7 @@ public class Navigator {
         if (addToBackStack) {
             transaction.addToBackStack(fragment.getClass().getSimpleName());
         }
-        transaction.add(containerViewId,fragment, tag);
+        transaction.replace(containerViewId,fragment, tag);
         transaction.commit();
     }
     /**
