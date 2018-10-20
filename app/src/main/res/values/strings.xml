@@ -27,4 +27,10 @@
     <string name="create_account_successful">Create account successful</string>
     <string name="create_account_failed">Create account failed</string>
     <string name="send_email_successful">Send email successful</string>
+    <string name="time_line">Timeline</string>
+    <string name="message">Message</string>
+    <string name="friend">Friend</string>
+    <string name="notification">Notification</string>
+    <string name="more">More</string>
+    <string name="search">Search friends…</string>
 </resources>
