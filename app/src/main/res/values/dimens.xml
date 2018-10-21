@@ -15,4 +15,5 @@
     <dimen name="dp_12">12dp</dimen>
     <dimen name="dp_56">56dp</dimen>
     <dimen name="dp_1">1dp</dimen>
+    <dimen name="dp_10">10dp</dimen>
 </resources>

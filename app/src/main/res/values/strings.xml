@@ -33,4 +33,5 @@
     <string name="notification">Notification</string>
     <string name="more">More</string>
     <string name="search">Search friends…</string>
+    <string name="notify_no_result">No results</string>
 </resources>

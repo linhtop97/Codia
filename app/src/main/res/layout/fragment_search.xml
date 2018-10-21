@@ -6,18 +6,79 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="com.example.myteam.codia.screen.search.SearchViewModel" />
     </data>
 
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/search_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#efffed">
-        <TextView
-            android:layout_width="wrap_content"
+        android:background="@drawable/background">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/layout_search_friend_button"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_48"
-            android:text="@string/search"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_marginTop="25dp"
+            android:paddingStart="@dimen/dp_0"
+            android:paddingEnd="@dimen/dp_0"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_width="@dimen/dp_48"
+                android:layout_height="@dimen/dp_48"
+                android:background="@null"
+                android:src="@drawable/ic_back"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent" />
+
+            <EditText
+                android:id="@+id/edtSearchFriend"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_margin="@dimen/dp_4"
+                android:background="@drawable/custom_search"
+                android:drawableStart="@drawable/ic_search_friend"
+                android:drawablePadding="@dimen/dp_10"
+                android:gravity="center_vertical"
+                android:hint="@string/search"
+                android:paddingLeft="@dimen/dp_16"
+                android:paddingRight="@dimen/dp_16"
+                android:text="@={viewModel.valueSearch}"
+                android:textColor="@android:color/white"
+                android:textColorHint="@color/textColorHint"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/btnBack"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <requestFocus />
+            </EditText>
+        </android.support.constraint.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/notifyResult"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_12"
+            android:text="@string/notify_no_result"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="24sp"
+            android:textStyle="italic"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/layout_search_friend_button" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvFriend"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_search_friend_button" />
+
     </android.support.constraint.ConstraintLayout>
 </layout>

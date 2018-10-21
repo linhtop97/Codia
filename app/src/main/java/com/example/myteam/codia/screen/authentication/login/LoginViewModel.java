@@ -4,12 +4,17 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.widget.Toast;
 
 import com.example.myteam.codia.BR;
+import com.example.myteam.codia.MainApplication;
 import com.example.myteam.codia.R;
+import com.example.myteam.codia.data.source.local.sharedprf.SharedPrefsImpl;
+import com.example.myteam.codia.data.source.local.sharedprf.SharedPrefsKey;
 import com.example.myteam.codia.screen.authentication.register.RegisterActivity;
 import com.example.myteam.codia.screen.main.MainActivity;
 import com.example.myteam.codia.utils.navigator.Navigator;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class LoginViewModel extends BaseObservable implements LoginContract.ViewModel {
@@ -21,11 +26,13 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
     private String mEmail;
     private String mPassword;
     private boolean mIsRememberAccount;
+    private SharedPrefsImpl mSharedPrefs;
 
     public LoginViewModel(Context context, Navigator navigator) {
         mContext = context;
         mNavigator = navigator;
         mDialog = new ProgressDialog(context);
+        mSharedPrefs = new SharedPrefsImpl(context);
         mDialog.setMessage(context.getString(R.string.msg_loading));
     }
 
@@ -56,6 +63,11 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
     @Override
     public void onGetUserSuccessful(FirebaseUser firebaseUser) {
         mNavigator.finishActivity();
+        try {
+            mSharedPrefs.put(SharedPrefsKey.PREF_USER_ID, FirebaseAuth.getInstance().getCurrentUser().getUid());
+        } catch (Exception ex) {
+            Toast.makeText(mContext, "Error", Toast.LENGTH_SHORT).show();
+        }
         mNavigator.startActivity(MainActivity.getInstance(mContext));
     }
 

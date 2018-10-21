@@ -6,7 +6,7 @@
     <color name="colorAccent">#FFFFFF</color>
     <color name="textColorPrimary">#FFFFFF</color>
     <color name="textColorSecondary">#FFFFFF</color>
+    <color name="textColorHint">#dadee5</color>
     <color name="colorDivider">#FFFFFF</color>
-
     <color name="colorControlActivated">#ffffff</color>
 </resources>

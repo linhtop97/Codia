@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         mNavigator = new Navigator(this);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        // BottomNavigationViewHelper.disableShiftMode(mBinding.bottomNav);
+        BottomNavigationViewHelper.disableShiftMode(mBinding.bottomNav);
         setupBottomNav(mBinding.bottomNav.getSelectedItemId());
         mBinding.bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.search_container:
                 //add search fragment
                 mNavigator.addFragment(R.id.main_container, SearchFragment.newInstance(),
-                        true, Navigator.NavigateAnim.FADED, SearchFragment.TAG);
+                        true, Navigator.NavigateAnim.LEFT_RIGHT, SearchFragment.TAG);
                 mBinding.bottomNav.setVisibility(View.GONE);
                 break;
         }
