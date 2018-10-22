@@ -34,4 +34,10 @@
     <string name="more">More</string>
     <string name="search">Search friends…</string>
     <string name="notify_no_result">No results</string>
+    <string name="view_your_profile">view your profile</string>
+    <string name="logout">Logout</string>
+    <string name="did_you_want_to_logout">Did you want to logout?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="get_profile_error">Get profile error!</string>
 </resources>

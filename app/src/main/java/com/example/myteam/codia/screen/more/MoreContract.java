@@ -7,7 +7,6 @@ import com.example.myteam.codia.screen.base.BaseViewModel;
 
 public interface MoreContract {
     interface ViewModel extends BaseViewModel<Presenter> {
-
         void showDialog();
 
         void dismissDialog();
@@ -20,12 +19,13 @@ public interface MoreContract {
 
         void onLogoutClick();
 
-        void logoutError(int message);
+        void logoutSuccessful();
+
     }
 
     interface Presenter extends BasePresenter {
-        void getProfile(DataCallback<User> callback);
+        void getProfile();
 
-        boolean logout();
+        void logout();
     }
 }

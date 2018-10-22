@@ -38,8 +38,8 @@ public class AuthenicationRepository implements AuthenicationDataSource.RemoteDa
     }
 
     @Override
-    public void signOut(DataCallback<FirebaseUser> callback) {
-
+    public void signOut() {
+        mRemoteDataSource.signOut();
     }
 
     @Override

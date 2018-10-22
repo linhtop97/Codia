@@ -34,6 +34,8 @@ public interface LoginContract {
         void onGetLastPassword(String s);
 
         void onGetIsRememberAccount(Boolean b);
+
+        void onLoginCurrentUser();
     }
 
     interface Presenter extends BasePresenter {

@@ -6,17 +6,105 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="com.example.myteam.codia.screen.more.MoreViewModel" />
     </data>
+
     <android.support.constraint.ConstraintLayout
-        android:background="#f2a469"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:paddingTop="@dimen/dp_8">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/profile_container"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="@dimen/dp_56"
+            android:layout_marginLeft="@dimen/dp_8"
+            bind:layout_constraintLeft_toLeftOf="parent"
+            bind:layout_constraintRight_toRightOf="parent"
+            bind:layout_constraintTop_toTopOf="parent">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/img_avartar"
+                android:layout_width="@dimen/dp_48"
+                android:layout_height="@dimen/dp_48"
+                android:layout_marginBottom="@dimen/dp_16"
+                android:src="@drawable/ic_profile"
+                bind:layout_constraintLeft_toLeftOf="parent"
+                bind:layout_constraintRight_toLeftOf="@+id/txt_name"
+                bind:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txt_name"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_8"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="@string/app_name"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/sp_18"
+                bind:layout_constraintLeft_toRightOf="@+id/img_avartar"
+                bind:layout_constraintRight_toRightOf="parent"
+                bind:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txt_view_infor"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_32"
+                android:text="@string/view_your_profile"
+                android:textColor="#757575"
+                bind:layout_constraintLeft_toRightOf="@+id/img_avartar"
+                bind:layout_constraintRight_toRightOf="parent"
+                bind:layout_constraintTop_toBottomOf="@+id/txt_name"
+                bind:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
+
         <TextView
-            android:layout_marginTop="@dimen/dp_48"
-            android:text="@string/more"
+            android:id="@+id/txt_line"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="@dimen/dp_1"
+            android:layout_marginTop="@dimen/dp_8"
+            android:background="#757575"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/profile_container" />
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_56"
+            android:layout_marginLeft="@dimen/dp_8"
+            android:layout_marginTop="@dimen/dp_16"
+            android:onClick="@{()-> viewModel.onLogoutClick()}"
+            bind:layout_constraintLeft_toLeftOf="parent"
+            bind:layout_constraintRight_toRightOf="parent"
+            bind:layout_constraintTop_toBottomOf="@id/txt_line">
+
+
+            <ImageView
+                android:id="@+id/img_logout"
+                android:layout_width="@dimen/dp_32"
+                android:layout_height="@dimen/dp_32"
+                android:src="@drawable/ic_logout"
+                bind:layout_constraintBottom_toBottomOf="parent"
+                bind:layout_constraintLeft_toLeftOf="parent"
+                bind:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_8"
+                android:text="@string/logout"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/sp_18"
+                bind:layout_constraintBottom_toBottomOf="@id/img_logout"
+                bind:layout_constraintLeft_toRightOf="@+id/img_logout"
+                bind:layout_constraintRight_toRightOf="parent"
+                bind:layout_constraintTop_toTopOf="@id/img_logout" />
+        </android.support.constraint.ConstraintLayout>
     </android.support.constraint.ConstraintLayout>
 </layout>

@@ -40,6 +40,7 @@ public class AuthenicationRemoteDataSource implements AuthenicationDataSource.Re
 
     /**
      * check email is used for another account yet?
+     *
      * @param email
      * @param callback
      */
@@ -57,6 +58,7 @@ public class AuthenicationRemoteDataSource implements AuthenicationDataSource.Re
 
     /**
      * send confirm code to email register acc
+     *
      * @param email
      * @param callback
      */
@@ -67,6 +69,7 @@ public class AuthenicationRemoteDataSource implements AuthenicationDataSource.Re
 
     /**
      * register account Firebase with email, password
+     *
      * @param email
      * @param password
      * @param callBack
@@ -140,8 +143,8 @@ public class AuthenicationRemoteDataSource implements AuthenicationDataSource.Re
     }
 
     @Override
-    public void signOut(DataCallback<FirebaseUser> callback) {
-
+    public void signOut() {
+        mFirebaseAuth.signOut();
     }
 
     @Override

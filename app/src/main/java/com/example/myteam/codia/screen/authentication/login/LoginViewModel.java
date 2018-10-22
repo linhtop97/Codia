@@ -7,7 +7,6 @@ import android.databinding.Bindable;
 import android.widget.Toast;
 
 import com.example.myteam.codia.BR;
-import com.example.myteam.codia.MainApplication;
 import com.example.myteam.codia.R;
 import com.example.myteam.codia.data.source.local.sharedprf.SharedPrefsImpl;
 import com.example.myteam.codia.data.source.local.sharedprf.SharedPrefsKey;
@@ -68,7 +67,7 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
         } catch (Exception ex) {
             Toast.makeText(mContext, "Error", Toast.LENGTH_SHORT).show();
         }
-        mNavigator.startActivity(MainActivity.getInstance(mContext));
+        mNavigator.startActivity(MainActivity.getInstance(mContext, false));
     }
 
     @Override
@@ -152,5 +151,9 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
     public void setRememberAccount(boolean rememberAccount) {
         mIsRememberAccount = rememberAccount;
         notifyPropertyChanged(BR.rememberAccount);
+    }
+
+    public void onLoginCurrentUser() {
+        mNavigator.startActivity(MainActivity.getInstance(mContext, true));
     }
 }

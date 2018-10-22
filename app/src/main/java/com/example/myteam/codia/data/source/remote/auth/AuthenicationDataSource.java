@@ -21,7 +21,7 @@ public interface AuthenicationDataSource {
 
         void signIn(String email, String password, DataCallback<FirebaseUser> callBack);
 
-        void signOut(DataCallback<FirebaseUser> callback);
+        void signOut();
 
         void resetPassword(String email, DataCallback callback);
 

@@ -6,6 +6,9 @@ import android.databinding.BaseObservable;
 
 import com.example.myteam.codia.R;
 import com.example.myteam.codia.data.model.User;
+import com.example.myteam.codia.screen.authentication.login.LoginActivity;
+import com.example.myteam.codia.screen.main.MainActivity;
+import com.example.myteam.codia.screen.profile.ProfileFragment;
 import com.example.myteam.codia.utils.navigator.Navigator;
 
 public class MoreViewModel extends BaseObservable implements MoreContract.ViewModel {
@@ -14,9 +17,11 @@ public class MoreViewModel extends BaseObservable implements MoreContract.ViewMo
     private Context mContext;
     private Navigator mNavigator;
     private ProgressDialog mDialog;
+    private MainActivity mMainActivity;
 
     public MoreViewModel(Context context, Navigator navigator) {
         mContext = context;
+        mMainActivity = (MainActivity) context;
         mNavigator = navigator;
         mDialog = new ProgressDialog(context);
         mDialog.setMessage(context.getString(R.string.msg_loading));
@@ -24,21 +29,30 @@ public class MoreViewModel extends BaseObservable implements MoreContract.ViewMo
 
     @Override
     public void showDialog() {
-
+        if (mDialog != null && !mDialog.isShowing()) {
+            mDialog.show();
+        }
     }
 
     @Override
     public void dismissDialog() {
-
+        if (mDialog != null && mDialog.isShowing()) {
+            mDialog.dismiss();
+        }
     }
 
     @Override
     public void onShowProfileClick() {
-
+        mPresenter.getProfile();
     }
 
     @Override
     public void getProfileSuccessful(User user) {
+        //view profile, send user to user profile
+        ProfileFragment fragment = ProfileFragment.newInstance(user);
+        mNavigator.addFragment(R.id.main_container, fragment, true,
+                Navigator.NavigateAnim.FADED, fragment.getClass().getSimpleName());
+        mMainActivity.hideBottomNavigation();
 
     }
 
@@ -49,17 +63,18 @@ public class MoreViewModel extends BaseObservable implements MoreContract.ViewMo
 
     @Override
     public void onLogoutClick() {
-
+        mPresenter.logout();
     }
 
     @Override
-    public void logoutError(int message) {
-
+    public void logoutSuccessful() {
+        mNavigator.finishActivity();
+        mNavigator.startActivity(LoginActivity.class);
     }
 
     @Override
     public void onStart() {
-
+        mPresenter.onStart();
     }
 
     @Override
@@ -69,6 +84,6 @@ public class MoreViewModel extends BaseObservable implements MoreContract.ViewMo
 
     @Override
     public void setPresenter(MoreContract.Presenter presenter) {
-
+        mPresenter = presenter;
     }
 }

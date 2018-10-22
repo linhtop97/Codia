@@ -11,4 +11,7 @@ public final class Constant {
     public static final String EMAIL_SENDER = "nguyenbalinh06031997@gmail.com";
     public static final String PASSWORD_SENDER = "Linhnb1997";
 
+    public static final String ARGUMENT_USER= "ARGUMENT_USER";
+
+    public static final String EXTRA_LOGIN_CURRENT_USER = "EXTRA_LOGIN_CURRENT_USER" ;
 }
