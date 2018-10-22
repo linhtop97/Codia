@@ -1,6 +1,7 @@
 package com.example.myteam.codia.screen.search;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -76,7 +77,10 @@ public class SearchAdapter extends ListAdapter<User> {
             user = element;
             displayname.setText(user.getDisplayName());
             email.setText(user.getEmail());
-            Picasso.get().load(user.getAvatar()).into(avatar);
+            if (user.getAvatar() == null || user.getAvatar().isEmpty())
+                Picasso.get().load(R.drawable.default_avatar).into(avatar);
+            else
+                Picasso.get().load(user.getAvatar()).into(avatar);
         }
     }
 }

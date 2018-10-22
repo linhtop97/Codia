@@ -6,12 +6,18 @@ import com.example.myteam.codia.data.model.User;
 import com.example.myteam.codia.screen.base.BasePresenter;
 import com.example.myteam.codia.screen.base.BaseViewModel;
 
+import java.util.List;
+
 /**
  * Created by khanhjm on 21-10-2018.
  */
 public interface SearchContract {
     interface ViewModel extends BaseViewModel<Presenter> {
         void search(String value);
+
+        void FindAllFriend();
+
+        void FindFriend(String value);
     }
 
     interface Presenter extends BasePresenter {
