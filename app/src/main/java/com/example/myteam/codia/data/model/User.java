@@ -1,8 +1,6 @@
 package com.example.myteam.codia.data.model;
 
 public class User {
-
-
     private String mId;
     private String mEmail;
     private String mDisplayName;
@@ -83,9 +81,10 @@ public class User {
 
 
     public static class UserEntity {
+        public static final String USERS = "Users";
         public static final String ID = "id";
         public static final String DISPLAYNAME = "displayName";
         public static final String EMAIL = "email";
-        public static final String IMAGE = "image";
+        public static final String AVATAR = "avatar";
     }
 }

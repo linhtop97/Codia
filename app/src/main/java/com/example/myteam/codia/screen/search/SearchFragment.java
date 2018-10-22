@@ -4,7 +4,6 @@ import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Parcel;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -23,11 +22,6 @@ import com.example.myteam.codia.R;
 import com.example.myteam.codia.data.model.User;
 import com.example.myteam.codia.databinding.FragmentSearchBinding;
 import com.example.myteam.codia.screen.main.MainActivity;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +35,6 @@ public class SearchFragment extends Fragment {
     private MainActivity mMainActivity;
     private FragmentSearchBinding mBinding;
     private SearchAdapter mAdapter;
-    List<User> listFriend = new ArrayList<>();
 
     public static SearchFragment newInstance() {
         return new SearchFragment();
@@ -57,11 +50,11 @@ public class SearchFragment extends Fragment {
         View view = inflater.inflate(R.layout.item_search_friend, container, false);
         mViewModel = new SearchViewModel();
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_search, container, false);
+        mBinding.setViewModel(mViewModel);
         initializeRecyclerView(view);
 
-        SearchContract.Presenter presenter = new SearchPresenter(mViewModel);
-        mViewModel.setPresenter(presenter);
-        mBinding.setViewModel(mViewModel);
+//        SearchContract.Presenter presenter = new SearchPresenter(mViewModel);
+//        mViewModel.setPresenter(presenter);
 
         // Set button
         mBinding.btnBack.setOnClickListener(new View.OnClickListener() {
@@ -85,9 +78,8 @@ public class SearchFragment extends Fragment {
     }
 
     private void initializeRecyclerView(View view) {
-        mViewModel.FindAllFriend();
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        mAdapter = new SearchAdapter(view.getContext(), listFriend);
+        mAdapter = new SearchAdapter(view.getContext(), mViewModel.getResult());
         mAdapter.setListener(mSearchListener);
 
         RecyclerView recyclerView = mBinding.rvFriend;
@@ -99,26 +91,17 @@ public class SearchFragment extends Fragment {
 
     public void Search(String value) {
         if (value.isEmpty()) {
-            mAdapter.getData().clear();
+            mViewModel.getResult().clear();
+            mAdapter.notifyDataSetChanged();
         } else {
-            FindFriend(value);
+            mViewModel.FindFriend(value);
+            mAdapter.notifyDataSetChanged();
         }
         CheckSizeFriend();
     }
 
-    private void FindFriend(String value) {
-        listFriend.clear();
-        for (User item : mViewModel.getResultSearch()
-                ) {
-            if (item.getDisplayName().toLowerCase().contains(value.toLowerCase())
-                    || item.getEmail().toLowerCase().contains(value.toLowerCase()))
-                listFriend.add(item);
-            mAdapter.notifyDataSetChanged();
-        }
-    }
-
     private void CheckSizeFriend() {
-        if (listFriend.size() > 0) {
+        if (mViewModel.getResult().size() > 0) {
             mBinding.rvFriend.setVisibility(View.VISIBLE);
             mBinding.notifyResult.setVisibility(View.GONE);
         } else {
@@ -141,11 +124,10 @@ public class SearchFragment extends Fragment {
                         @Override
                         public void run() {
                             Search(mBinding.edtSearchFriend.getText().toString());
-//                            Toast.makeText(mMainActivity, mBinding.edtSearchFriend.getText().toString(), Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
-            }, 1000); // 1000ms delay before the timer executes the "run" method from TimerTask
+            }, 500); // 500ms delay before the timer executes the "run" method from TimerTask
         }
 
         @Override
@@ -165,7 +147,6 @@ public class SearchFragment extends Fragment {
     private SearchContract.SearchListener mSearchListener = new SearchContract.SearchListener() {
         @Override
         public void onSelect(User user) {
-            mBinding.edtSearchFriend.clearFocus();
             Toast.makeText(mMainActivity, user.getDisplayName(), Toast.LENGTH_SHORT).show();
         }
 
