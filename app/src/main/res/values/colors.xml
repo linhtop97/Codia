@@ -9,4 +9,7 @@
     <color name="textColorHint">#dadee5</color>
     <color name="colorDivider">#FFFFFF</color>
     <color name="colorControlActivated">#ffffff</color>
+    <color name="colorBackgroundNavigation">#fafafa</color>
+    <color name="colorBackgroundBorder">#d8d8d8</color>
+    <color name="colorBackgroundChat">#e2e9f1</color>
 </resources>

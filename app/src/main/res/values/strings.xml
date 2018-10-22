@@ -34,4 +34,6 @@
     <string name="more">More</string>
     <string name="search">Search friends…</string>
     <string name="notify_no_result">No results</string>
+    <string name="last_message">Last message</string>
+    <string name="last_time">Today</string>
 </resources>

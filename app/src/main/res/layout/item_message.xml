@@ -15,6 +15,15 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgOnline"
+        android:layout_width="@dimen/dp_16"
+        android:layout_height="@dimen/dp_16"
+        android:background="@null"
+        android:src="@drawable/ic_online"
+        app:layout_constraintBottom_toBottomOf="@id/avatar"
+        app:layout_constraintRight_toRightOf="@id/avatar" />
+
     <android.support.constraint.ConstraintLayout
         android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
@@ -27,7 +36,7 @@
 
         <TextView
             android:id="@+id/text_display_name"
-            android:layout_width="match_parent"
+            android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:ellipsize="end"
@@ -37,22 +46,37 @@
             android:textColor="@android:color/white"
             android:textSize="22sp"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/text_last_time"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/text_email"
+            android:id="@+id/text_last_message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:padding="@dimen/dp_4"
             android:singleLine="true"
-            android:text="@string/email"
+            android:text="@string/last_message"
             android:textColor="@color/textColorHint"
             android:textSize="16sp"
             android:textStyle="italic"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_display_name" />
+
+        <TextView
+            android:id="@+id/text_last_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:paddingLeft="@dimen/dp_8"
+            android:paddingTop="@dimen/dp_12"
+            android:singleLine="true"
+            android:text="@string/last_time"
+            android:textColor="@color/textColorHint"
+            android:textSize="16sp"
+            android:textStyle="italic"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>

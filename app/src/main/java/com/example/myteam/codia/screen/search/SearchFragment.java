@@ -1,6 +1,7 @@
 package com.example.myteam.codia.screen.search;
 
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Parcel;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 import com.example.myteam.codia.R;
 import com.example.myteam.codia.data.model.User;
 import com.example.myteam.codia.databinding.FragmentSearchBinding;
+import com.example.myteam.codia.screen.chat.ChatActivity;
 import com.example.myteam.codia.screen.main.MainActivity;
 
 import java.util.ArrayList;
@@ -50,9 +52,9 @@ public class SearchFragment extends Fragment {
         View view = inflater.inflate(R.layout.item_search_friend, container, false);
         mViewModel = new SearchViewModel();
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_search, container, false);
-        mBinding.setViewModel(mViewModel);
         initializeRecyclerView(view);
 
+//        mBinding.setViewModel(mViewModel);
 //        SearchContract.Presenter presenter = new SearchPresenter(mViewModel);
 //        mViewModel.setPresenter(presenter);
 
@@ -148,6 +150,9 @@ public class SearchFragment extends Fragment {
         @Override
         public void onSelect(User user) {
             Toast.makeText(mMainActivity, user.getDisplayName(), Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(mMainActivity, ChatActivity.class);
+            intent.putExtra(User.UserEntity.ID, user.getId());
+            startActivity(intent);
         }
 
         @Override

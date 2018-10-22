@@ -4,12 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.search_container:
                 //add search fragment
                 mNavigator.addFragment(R.id.main_container, SearchFragment.newInstance(),
-                        true, Navigator.NavigateAnim.LEFT_RIGHT, SearchFragment.TAG);
+                        true, Navigator.NavigateAnim.FADED, SearchFragment.TAG);
                 mBinding.bottomNav.setVisibility(View.GONE);
                 break;
         }

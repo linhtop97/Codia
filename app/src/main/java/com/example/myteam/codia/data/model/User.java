@@ -5,6 +5,7 @@ public class User {
     private String mEmail;
     private String mDisplayName;
     private String mAvatar;
+    private boolean mIsOnline;
 
     public User() {
     }
@@ -14,6 +15,7 @@ public class User {
         this.mEmail = builder.mEmail;
         this.mDisplayName = builder.mDisplayName;
         this.mAvatar = builder.mAvatar;
+        this.mIsOnline = builder.mIsOnline;
     }
 
     public static class Builder {
@@ -21,6 +23,7 @@ public class User {
         private String mEmail;
         private String mDisplayName;
         private String mAvatar;
+        private boolean mIsOnline;
 
         public Builder setId(String id) {
             mId = id;
@@ -39,6 +42,11 @@ public class User {
 
         public Builder setAvatar(String avatar) {
             mAvatar = avatar;
+            return this;
+        }
+
+        public Builder setIsOnline(boolean isOnline) {
+            mIsOnline = isOnline;
             return this;
         }
 
@@ -79,6 +87,13 @@ public class User {
         mAvatar = avatar;
     }
 
+    public boolean getIsOnline() {
+        return mIsOnline;
+    }
+
+    public void setIsOnline(boolean isonline) {
+        mIsOnline = isonline;
+    }
 
     public static class UserEntity {
         public static final String USERS = "Users";
@@ -86,5 +101,6 @@ public class User {
         public static final String DISPLAYNAME = "displayName";
         public static final String EMAIL = "email";
         public static final String AVATAR = "avatar";
+        public static final String ISONLINE = "isOnline";
     }
 }

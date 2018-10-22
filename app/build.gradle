@@ -42,6 +42,7 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxjava:2.2.0'
     implementation 'de.hdodenhof:circleimageview:2.2.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
+//    implementation 'com.google.firebase:firebase-messaging:17.3.3'
 }
 
 apply plugin: 'com.google.gms.google-services'
