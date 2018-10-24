@@ -133,7 +133,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:background="@color/colorBackgroundNavigation">
+            android:background="@color/colorBackgroundNavigation"
+            android:paddingTop="@dimen/dp_2"
+            android:paddingBottom="@dimen/dp_2">
 
             <ImageButton
                 android:id="@+id/btnImage"
@@ -167,9 +169,14 @@
 
             <EditText
                 android:id="@+id/edtContent"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:hint="@string/message"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="@dimen/dp_32"
+                android:layout_marginBottom="@dimen/dp_4"
+                android:background="@drawable/custom_edittext_chat"
+                android:hint="@string/type_a_message"
+                android:paddingLeft="@dimen/dp_8"
+                android:paddingRight="@dimen/dp_8"
+                android:textColorHighlight="@color/colorPrimary"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toRightOf="@id/btnEmoji"
                 app:layout_constraintRight_toLeftOf="@id/btnSend">
