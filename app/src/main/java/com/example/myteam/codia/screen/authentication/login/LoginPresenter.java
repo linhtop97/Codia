@@ -80,12 +80,6 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     @Override
     public void onStart() {
-        if (mSharedPrefs.get(PREF_KEEP_LOGIN, Boolean.class)) {
-            mViewModel.onGetIsRememberAccount(true);
-            mViewModel.onGetLastEmail(mSharedPrefs.get(PREF_EMAIL, String.class));
-            mViewModel.onGetLastPassword(mSharedPrefs.get(PREF_PASSWORD, String.class));
-            mViewModel.onLoginClick();
-        }
     }
 
     @Override

@@ -7,6 +7,10 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+
+import com.example.myteam.codia.R;
+import com.squareup.picasso.Picasso;
 
 public final class BindingUtils {
 
@@ -19,5 +23,15 @@ public final class BindingUtils {
     @BindingAdapter({"recyclerAdapter"})
     public static void setAdapterForRecyclerView(RecyclerView recyclerView, RecyclerView.Adapter adapter) {
         recyclerView.setAdapter(adapter);
+    }
+
+    @BindingAdapter("imgResource")
+    public static void setImage(ImageView imageView, String urlImage) {
+        if (urlImage == null) {
+            imageView.setImageResource(R.drawable.ic_profile);
+        } else {
+            Picasso.get().load(urlImage)
+                    .into(imageView);
+        }
     }
 }

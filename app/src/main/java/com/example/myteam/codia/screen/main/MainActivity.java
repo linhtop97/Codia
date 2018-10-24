@@ -24,14 +24,17 @@ import com.example.myteam.codia.screen.notification.NotificationFragment;
 import com.example.myteam.codia.screen.search.SearchFragment;
 import com.example.myteam.codia.screen.timeline.TimeLineFragment;
 import com.example.myteam.codia.utils.BottomNavigationViewHelper;
+import com.example.myteam.codia.utils.Constant;
 import com.example.myteam.codia.utils.navigator.Navigator;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    private MainContract.ViewModel mViewModel;
     private ActivityMainBinding mBinding;
     private Navigator mNavigator;
 
-    public static Intent getInstance(Context context) {
+    public static Intent getInstance(Context context, Boolean isLogin) {
         Intent intent = new Intent(context, MainActivity.class);
+        intent.putExtra(Constant.EXTRA_LOGIN_CURRENT_USER, isLogin);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         return intent;
     }
@@ -42,6 +45,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Window w = getWindow();
             w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        }
+        mViewModel = new MainViewModel(this, new Navigator(this));
+        //get is Login at here
+        Boolean isLoginCurrentUser = getIntent().getBooleanExtra(Constant.EXTRA_LOGIN_CURRENT_USER, false);
+        if (isLoginCurrentUser) {
+            mViewModel.onLoginCurrentUser();
         }
         mNavigator = new Navigator(this);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
@@ -118,6 +127,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void showBottomNavigation() {
         mBinding.bottomNav.setVisibility(View.VISIBLE);
     }
+
+    public void hideBottomNavigation() {
+        mBinding.bottomNav.setVisibility(View.GONE);
+    }
+
 
     @Override
     public void onBackPressed() {

@@ -19,7 +19,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ImageButton;;
+import android.widget.ImageButton;
 
 import com.example.myteam.codia.R;
 import com.example.myteam.codia.data.source.local.sharedprf.SharedPrefsImpl;
@@ -31,6 +31,8 @@ import com.example.myteam.codia.utils.navigator.Navigator;
 import static com.example.myteam.codia.data.source.local.sharedprf.SharedPrefsKey.PREF_EMAIL_REGISTER;
 import static com.example.myteam.codia.data.source.local.sharedprf.SharedPrefsKey.PREF_KEEP_LOGIN;
 import static com.example.myteam.codia.data.source.local.sharedprf.SharedPrefsKey.PREF_PASSWORD_REGISTER;
+
+;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     private LoginContract.ViewModel mViewModel;
@@ -55,6 +57,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
         mViewModel = new LoginViewModel(this, new Navigator(this));
         mSharedPrefs = new SharedPrefsImpl(this);
+        if (mSharedPrefs.get(PREF_KEEP_LOGIN, Boolean.class)) {
+            mViewModel.onLoginCurrentUser();
+        }
         AuthenicationRepository repository =
                 new AuthenicationRepository(new AuthenicationRemoteDataSource());
         LoginContract.Presenter presenter =

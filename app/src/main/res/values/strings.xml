@@ -37,4 +37,10 @@
     <string name="last_message">Last message</string>
     <string name="last_time">Today</string>
     <string name="type_a_message">Type a message</string>
+    <string name="view_your_profile">view your profile</string>
+    <string name="logout">Logout</string>
+    <string name="did_you_want_to_logout">Did you want to logout?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="get_profile_error">Get profile error!</string>
 </resources>

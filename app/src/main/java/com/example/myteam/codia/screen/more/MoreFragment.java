@@ -9,12 +9,22 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.myteam.codia.R;
+import com.example.myteam.codia.data.model.User;
+import com.example.myteam.codia.data.source.local.sharedprf.SharedPrefsImpl;
+import com.example.myteam.codia.data.source.remote.auth.AuthenicationRemoteDataSource;
+import com.example.myteam.codia.data.source.remote.auth.AuthenicationRepository;
+import com.example.myteam.codia.data.source.remote.auth.DataCallback;
 import com.example.myteam.codia.databinding.FragmentMoreBinding;
-import com.example.myteam.codia.databinding.FragmentTimelineBinding;
+import com.example.myteam.codia.utils.navigator.Navigator;
+import com.squareup.picasso.Picasso;
 
-public class MoreFragment extends Fragment {
+public class MoreFragment extends Fragment implements DataCallback<User>, View.OnClickListener {
 
     public static final String TAG = "MoreFragment";
+    private MoreViewModel mViewModel;
+    private User mUser;
+    private FragmentMoreBinding mBinding;
+
     public static MoreFragment newInstance() {
         return new MoreFragment();
     }
@@ -22,7 +32,42 @@ public class MoreFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        FragmentMoreBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_more, container, false);
-        return binding.getRoot();
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_more, container, false);
+        mViewModel = new MoreViewModel(getContext(), new Navigator(getActivity()));
+        AuthenicationRepository repository = new AuthenicationRepository(new AuthenicationRemoteDataSource());
+        MorePresenter morePresenter = new MorePresenter(mViewModel, repository, new SharedPrefsImpl(getContext()), this);
+        mViewModel.setPresenter(morePresenter);
+        mBinding.setViewModel(mViewModel);
+        mBinding.profileContainer.setOnClickListener(this);
+        return mBinding.getRoot();
+    }
+
+    @Override
+    public void onGetDataSuccess(User data) {
+        mUser = data;
+        mBinding.txtName.setText(mUser.getDisplayName());
+        String urlImage = mUser.getAvatar();
+        if (urlImage == null) {
+            mBinding.imgAvartar.setImageResource(R.drawable.ic_profile);
+        } else {
+            Picasso.get().load(urlImage)
+                    .into(mBinding.imgAvartar);
+        }
+    }
+
+    @Override
+    public void onGetDataFailed(String msg) {
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        mViewModel.onShowProfileClick();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mViewModel.onStart();
     }
 }
