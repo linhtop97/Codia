@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import com.example.myteam.codia.BR;
 import com.example.myteam.codia.R;
+import com.example.myteam.codia.data.model.User;
 import com.example.myteam.codia.data.source.local.sharedprf.SharedPrefsImpl;
 import com.example.myteam.codia.data.source.local.sharedprf.SharedPrefsKey;
 import com.example.myteam.codia.screen.authentication.register.RegisterActivity;
@@ -15,6 +16,8 @@ import com.example.myteam.codia.screen.main.MainActivity;
 import com.example.myteam.codia.utils.navigator.Navigator;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class LoginViewModel extends BaseObservable implements LoginContract.ViewModel {
 
@@ -63,7 +66,10 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
     public void onGetUserSuccessful(FirebaseUser firebaseUser) {
         mNavigator.finishActivity();
         try {
-            mSharedPrefs.put(SharedPrefsKey.PREF_USER_ID, FirebaseAuth.getInstance().getCurrentUser().getUid());
+            String UserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            mSharedPrefs.put(SharedPrefsKey.PREF_USER_ID, UserId);
+            DatabaseReference mUserRef = FirebaseDatabase.getInstance().getReference().child(User.UserEntity.USERS).child(UserId);
+            mUserRef.child(User.UserEntity.ISONLINE).setValue(true);
         } catch (Exception ex) {
             Toast.makeText(mContext, "Error", Toast.LENGTH_SHORT).show();
         }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#1F95C6</color>
-    <color name="colorPrimaryDark">#031923</color>
+    <color name="colorPrimaryDark">#104f6c</color>
     <color name="colorPrimaryLight">#104f6c</color>
     <color name="colorAccent">#FFFFFF</color>
     <color name="textColorPrimary">#FFFFFF</color>
@@ -9,4 +9,8 @@
     <color name="textColorHint">#dadee5</color>
     <color name="colorDivider">#FFFFFF</color>
     <color name="colorControlActivated">#ffffff</color>
+    <color name="textViewColorPrimary">#000000</color>
+    <color name="textViewColorSecondary">#706f6f</color>
+
+
 </resources>

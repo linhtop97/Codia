@@ -26,9 +26,9 @@
         <activity android:name=".screen.authentication.register.RegisterActivity">
 
         </activity>
-        <activity android:name=".screen.authentication.confirm.RegisterConfirmActivity">
-
-        </activity>
+        <activity android:name=".screen.authentication.confirm.RegisterConfirmActivity"/>
+        <activity android:name=".screen.profile.ProfileActivity"
+            android:theme="@style/ProfileTheme"/>
     </application>
 
 </manifest>
