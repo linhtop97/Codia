@@ -17,4 +17,15 @@
     <dimen name="dp_1">1dp</dimen>
     <dimen name="dp_10">10dp</dimen>
     <dimen name="sp_18">18sp</dimen>
+    <dimen name="dp_200">200dp</dimen>
+    <dimen name="dp_164">164dp</dimen>
+    <dimen name="dp__64">-64dp</dimen>
+    <dimen name="sp_12">12sp</dimen>
+    <dimen name="dp__48">-48dp</dimen>
+    <dimen name="dp__24">-24dp</dimen>
+    <dimen name="dp__32">-32dp</dimen>
+    <dimen name="dp__128">-128dp</dimen>
+    <dimen name="dp__40">-40dp</dimen>
+    <dimen name="dp__70">-70dp</dimen>
+    <dimen name="dp__82">-82dp</dimen>
 </resources>

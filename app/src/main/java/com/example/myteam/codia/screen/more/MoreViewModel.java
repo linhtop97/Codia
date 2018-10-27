@@ -7,8 +7,9 @@ import android.databinding.BaseObservable;
 import com.example.myteam.codia.R;
 import com.example.myteam.codia.data.model.User;
 import com.example.myteam.codia.screen.authentication.login.LoginActivity;
+import com.example.myteam.codia.screen.editprofile.EditProfileFragment;
 import com.example.myteam.codia.screen.main.MainActivity;
-import com.example.myteam.codia.screen.profile.ProfileFragment;
+import com.example.myteam.codia.screen.profile.ProfileActivity;
 import com.example.myteam.codia.utils.navigator.Navigator;
 
 public class MoreViewModel extends BaseObservable implements MoreContract.ViewModel {
@@ -49,11 +50,7 @@ public class MoreViewModel extends BaseObservable implements MoreContract.ViewMo
     @Override
     public void getProfileSuccessful(User user) {
         //view profile, send user to user profile
-        ProfileFragment fragment = ProfileFragment.newInstance(user);
-        mNavigator.addFragment(R.id.main_container, fragment, true,
-                Navigator.NavigateAnim.FADED, fragment.getClass().getSimpleName());
-        mMainActivity.hideBottomNavigation();
-
+        mNavigator.startActivity(ProfileActivity.getInstance(mMainActivity, user));
     }
 
     @Override
@@ -64,6 +61,13 @@ public class MoreViewModel extends BaseObservable implements MoreContract.ViewMo
     @Override
     public void onLogoutClick() {
         mPresenter.logout();
+    }
+
+    @Override
+    public void onEditProfileClick() {
+        //new edit profile fragment is heref
+        EditProfileFragment fragment = EditProfileFragment.newInstance();
+        mNavigator.addFragment(R.id.main_container, fragment, true, Navigator.NavigateAnim.BOTTOM_UP, fragment.getClass().getSimpleName());
     }
 
     @Override

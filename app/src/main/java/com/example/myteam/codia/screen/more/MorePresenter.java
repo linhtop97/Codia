@@ -61,17 +61,23 @@ public class MorePresenter implements MoreContract.Presenter {
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         String id = dataSnapshot.getKey();
                         String avatar = (String) dataSnapshot.child(User.UserEntity.AVATAR).getValue();
+                        String cover = (String) dataSnapshot.child(User.UserEntity.COVER).getValue();
                         String dateCreated = (String) dataSnapshot.child(User.UserEntity.DATECREATED).getValue();
                         String displayName = (String) dataSnapshot.child(User.UserEntity.DISPLAYNAME).getValue();
                         String email = (String) dataSnapshot.child(User.UserEntity.EMAIL).getValue();
                         String address = (String) dataSnapshot.child(User.UserEntity.ADDRESS).getValue();
+                        String description = (String) dataSnapshot.child(User.UserEntity.DESCRIPTION).getValue();
+                        String relationship = (String) dataSnapshot.child(User.UserEntity.RELATIONSHIP).getValue();
                         String status = (String) dataSnapshot.child(User.UserEntity.STATUS).getValue();
                         mUser = new User.Builder().setId(id)
                                 .setAvatar(avatar)
+                                .setCover(cover)
                                 .setDateCreated(dateCreated)
                                 .setDisplayName(displayName)
                                 .setEmail(email)
                                 .setAddress(address)
+                                .setDescription(description)
+                                .setRelationship(relationship)
                                 .setStatus(status)
                                 .build();
                         mUserDataCallback.onGetDataSuccess(mUser);

@@ -10,6 +10,8 @@ public interface MainContract {
         void dismissDialog();
 
         void onLoginCurrentUser();
+
+        void onLogout();
     }
 
     interface Presenter extends BasePresenter {

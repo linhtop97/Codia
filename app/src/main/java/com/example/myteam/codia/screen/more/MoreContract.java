@@ -19,6 +19,8 @@ public interface MoreContract {
 
         void onLogoutClick();
 
+        void onEditProfileClick();
+
         void logoutSuccessful();
 
     }
