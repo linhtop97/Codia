@@ -28,21 +28,17 @@
             android:screenOrientation="portrait">
 
         </activity>
-        <activity android:name=".screen.authentication.confirm.RegisterConfirmActivity"/>
-        <activity android:name=".screen.profile.ProfileActivity"
-            android:theme="@style/ProfileTheme"/>
         <activity
             android:name=".screen.authentication.confirm.RegisterConfirmActivity"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".screen.profile.ProfileActivity"
+            android:theme="@style/ProfileTheme" />
         <activity
             android:name=".screen.chat.ChatActivity"
             android:parentActivityName=".screen.main.MainActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize">
-
-        </activity>
+            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>

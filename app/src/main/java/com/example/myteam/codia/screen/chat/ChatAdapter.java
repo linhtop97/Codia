@@ -49,15 +49,6 @@ public class ChatAdapter extends ListAdapter<Message> {
             mLayoutInflater = LayoutInflater.from(parent.getContext());
         }
         View view;
-//        for (int i = mData.size() - 1; i > 0; i--) {
-//            if (mData.get(i).getFrom().equals(mData.get(i - 1).getFrom())) {
-//                mData.get(i - 1).ShowTime = false;
-//                mData.get(i).ShowAvatar = false;
-//            } else {
-//                mData.get(i - 1).ShowTime = true;
-//                mData.get(i).ShowAvatar = true;
-//            }
-//        }
         switch (viewType) {
             case VIEW_TYPE_1:
                 view = mLayoutInflater.inflate(R.layout.item_message_receive, parent, false);
@@ -81,14 +72,15 @@ public class ChatAdapter extends ListAdapter<Message> {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (mData == null) return;
-//        if (position > 0)
-//            if (mData.get(position).getFrom().equals(mData.get(position - 1).getFrom())) {
-//                mData.get(position - 1).ShowTime = false;
-//                mData.get(position).ShowAvatar = false;
-//            } else {
-//                mData.get(position - 1).ShowTime = true;
-//                mData.get(position).ShowAvatar = true;
-//            }
+        if (position > 0) {
+            if (mData.get(position).getFrom().equals(mData.get(position - 1).getFrom())) {
+                mData.get(position - 1).ShowTime = false;
+                mData.get(position).ShowAvatar = false;
+            } else {
+                mData.get(position - 1).ShowTime = true;
+                mData.get(position).ShowAvatar = true;
+            }
+        }
         switch (holder.getItemViewType()) {
             case VIEW_TYPE_1:
                 ViewHolder viewHolder = (ViewHolder) holder;
@@ -120,8 +112,11 @@ public class ChatAdapter extends ListAdapter<Message> {
             messageText.setText(mMessage.getMessage());
             time.setText(mMessage.getTime());
             setAvatar(mMessage.getFrom());
-            if (!mMessage.ShowAvatar) avatar.setVisibility(View.INVISIBLE);
-            if (!mMessage.ShowTime) time.setVisibility(View.GONE);
+            if (mMessage.ShowAvatar) avatar.setVisibility(View.VISIBLE);
+            else avatar.setVisibility(View.INVISIBLE);
+            if (mMessage.ShowTime) time.setVisibility(View.VISIBLE);
+            else time.setVisibility(View.GONE);
+
         }
 
         private void setAvatar(String userId) {
@@ -158,7 +153,8 @@ public class ChatAdapter extends ListAdapter<Message> {
             mMessage = element;
             messageText.setText(mMessage.getMessage());
             time.setText(mMessage.getTime());
-            if (!mMessage.ShowTime) time.setVisibility(View.GONE);
+            if (mMessage.ShowTime) time.setVisibility(View.VISIBLE);
+            else time.setVisibility(View.GONE);
         }
     }
 }
