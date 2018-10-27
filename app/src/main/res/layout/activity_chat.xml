@@ -38,7 +38,7 @@
                 android:layout_width="@dimen/dp_32"
                 android:layout_height="@dimen/dp_32"
                 android:background="@null"
-                android:src="@drawable/default_avatar"
+                android:src="@drawable/ic_profile"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toRightOf="@id/btnBack"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -163,14 +163,15 @@
                 android:layout_height="40dp"
                 android:background="@null"
                 android:padding="4dp"
-                android:src="@drawable/ic_send"
+                android:src="@drawable/ic_like"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent" />
 
             <EditText
                 android:id="@+id/edtContent"
                 android:layout_width="@dimen/dp_0"
-                android:layout_height="@dimen/dp_32"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/dp_32"
                 android:layout_marginBottom="@dimen/dp_4"
                 android:background="@drawable/custom_edittext_chat"
                 android:hint="@string/type_a_message"
@@ -179,11 +180,7 @@
                 android:textColorHighlight="@color/colorPrimary"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toRightOf="@id/btnEmoji"
-                app:layout_constraintRight_toLeftOf="@id/btnSend">
-
-                <requestFocus />
-            </EditText>
+                app:layout_constraintRight_toLeftOf="@id/btnSend" />
         </android.support.constraint.ConstraintLayout>
-
     </RelativeLayout>
 </layout>

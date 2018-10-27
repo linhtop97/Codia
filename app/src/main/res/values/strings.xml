@@ -43,4 +43,5 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="get_profile_error">Get profile error!</string>
+    <string name="get_message_error">Get message error!</string>
 </resources>

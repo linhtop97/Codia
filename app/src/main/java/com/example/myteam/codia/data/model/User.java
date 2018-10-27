@@ -12,7 +12,6 @@ public class User implements Parcelable {
     private String mAddress;
     private boolean mIsOnline;
     private String mLastLogin;
-
     private String mStatus;
 
     public User() {

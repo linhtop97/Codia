@@ -8,8 +8,13 @@
     <color name="textColorSecondary">#FFFFFF</color>
     <color name="textColorHint">#dadee5</color>
     <color name="colorDivider">#FFFFFF</color>
-    <color name="colorControlActivated">#ffffff</color>
+    <color name="colorControlActivated">#FFFFFF</color>
     <color name="colorBackgroundNavigation">#fafafa</color>
     <color name="colorBackgroundBorder">#d8d8d8</color>
     <color name="colorBackgroundChat">#e2e9f1</color>
+    <color name="colorButtonChat">#BFBFBF</color>
+    <color name="colorMessageReceive">#FFFFFF</color>
+    <color name="colorMessageSend">#d5f0ff</color>
+    <color name="textColorMessagePrimary">#4a4a4a</color>
+    <color name="textColorMessageSecondary">#848c94</color>
 </resources>
