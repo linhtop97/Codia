@@ -44,4 +44,10 @@
     <string name="no">No</string>
     <string name="get_profile_error">Get profile error!</string>
     <string name="get_message_error">Get message error!</string>
+    <string name="view_friends">View friends ></string>
+    <string name="view_pictures">View pictures ></string>
+    <string name="add_friend">Add friend</string>
+    <string name="edit_profile">Edit profile</string>
+    <string name="plan">Plan</string>
+    <string name="edit">EDIT</string>
 </resources>

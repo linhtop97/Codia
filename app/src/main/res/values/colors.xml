@@ -8,7 +8,9 @@
     <color name="textColorSecondary">#FFFFFF</color>
     <color name="textColorHint">#dadee5</color>
     <color name="colorDivider">#FFFFFF</color>
-    <color name="colorControlActivated">#FFFFFF</color>
+    <color name="colorControlActivated">#ffffff</color>
+    <color name="textViewColorPrimary">#000000</color>
+    <color name="textViewColorSecondary">#706f6f</color>
     <color name="colorBackgroundNavigation">#fafafa</color>
     <color name="colorBackgroundBorder">#d8d8d8</color>
     <color name="colorBackgroundChat">#e2e9f1</color>

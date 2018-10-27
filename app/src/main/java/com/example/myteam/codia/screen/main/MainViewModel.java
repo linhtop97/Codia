@@ -8,7 +8,9 @@ import com.example.myteam.codia.data.model.User;
 import com.example.myteam.codia.data.source.local.sharedprf.SharedPrefsImpl;
 import com.example.myteam.codia.data.source.local.sharedprf.SharedPrefsKey;
 import com.example.myteam.codia.data.source.remote.auth.AuthenicationRemoteDataSource;
+import com.example.myteam.codia.data.source.remote.auth.AuthenicationRepository;
 import com.example.myteam.codia.data.source.remote.auth.DataCallback;
+import com.example.myteam.codia.utils.DateTimeUtils;
 import com.example.myteam.codia.utils.navigator.Navigator;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -66,6 +68,16 @@ public class MainViewModel implements MainContract.ViewModel, DataCallback<Fireb
         String pw = mSharedPrefs.get(PREF_PASSWORD, String.class);
         new AuthenicationRemoteDataSource().signIn(email, pw, this);
         showDialog();
+    }
+
+    @Override
+    public void onLogout() {
+        new AuthenicationRepository(new AuthenicationRemoteDataSource()).signOut();
+        DatabaseReference userReference = FirebaseDatabase.getInstance()
+                .getReference().child(User.UserEntity.USERS)
+                .child(mSharedPrefs.get(SharedPrefsKey.PREF_USER_ID, String.class));
+        userReference.child(User.UserEntity.ISONLINE).setValue(false);
+        userReference.child(User.UserEntity.LASTLOGIN).setValue(DateTimeUtils.getCurrentTime());
     }
 
     @Override

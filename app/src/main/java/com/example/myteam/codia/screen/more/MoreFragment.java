@@ -50,7 +50,7 @@ public class MoreFragment extends Fragment implements DataCallback<User>, View.O
         if (urlImage == null) {
             mBinding.imgAvartar.setImageResource(R.drawable.ic_profile);
         } else {
-            Picasso.get().load(urlImage)
+            Picasso.get().load(urlImage).placeholder(R.drawable.default_avatar)
                     .into(mBinding.imgAvartar);
         }
     }
