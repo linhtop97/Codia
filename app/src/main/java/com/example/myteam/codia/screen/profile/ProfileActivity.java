@@ -19,6 +19,7 @@ import com.example.myteam.codia.databinding.ActivityProfileBinding;
 import com.example.myteam.codia.screen.base.adapter.OnItemClickListener;
 import com.example.myteam.codia.screen.chat.ChatActivity;
 import com.example.myteam.codia.utils.Constant;
+import com.example.myteam.codia.utils.navigator.Navigator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,7 @@ public class ProfileActivity extends AppCompatActivity implements OnItemClickLis
     private RecyclerView recyclerView;
     private RecyclerAdapter adapter;
     private ActionBar mActionBar;
+    private ProfileViewModel mViewModel;
 
     public static Intent getInstance(Context context, User user) {
         Intent intent = new Intent(context, ProfileActivity.class);
@@ -48,9 +50,10 @@ public class ProfileActivity extends AppCompatActivity implements OnItemClickLis
         if (bundle != null) {
             mUser = bundle.getParcelable(Constant.EXTRA_USER);
             mBinding.setUser(mUser);
-            mBinding.toolbar.setTitle(mUser.getDisplayName());
         }
         initViews();
+        mViewModel = new ProfileViewModel(this, new Navigator(this));
+        mBinding.setViewModel(mViewModel);
     }
 
     private void initViews() {

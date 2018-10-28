@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="post"
+            type="com.example.myteam.codia.data.model.Post" />
+
+        <variable
+            name="viewModel"
+            type="com.example.myteam.codia.screen.post.PostViewModel" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white">
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/actionbar_container"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_48"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent">
+
+                <ImageButton
+                    android:id="@+id/back_button"
+                    android:layout_width="@dimen/dp_32"
+                    android:layout_height="@dimen/dp_32"
+                    android:layout_marginLeft="@dimen/dp_8"
+                    android:background="@null"
+                    android:onClick="@{()-> viewModel.onBackClick()}"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_back_black"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_16"
+                    android:onClick="@{()-> viewModel.onPrivacyClick()}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/back_button"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/text_privacy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/privacy"
+                        android:textColor="@color/textViewColorPrimary"
+                        android:textSize="16sp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageButton
+                        android:layout_width="@dimen/dp_16"
+                        android:layout_height="@dimen/dp_16"
+                        android:layout_marginLeft="@dimen/dp_4"
+                        android:layout_marginTop="@dimen/dp_4"
+                        android:background="@null"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ic_down_arrow"
+                        app:layout_constraintLeft_toRightOf="@id/text_privacy"
+                        app:layout_constraintTop_toTopOf="@id/text_privacy" />
+
+                    <TextView
+                        android:id="@+id/text_privacy_content"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/Public"
+                        android:textColor="@color/textViewColorSecondary"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="@id/text_privacy"
+                        app:layout_constraintTop_toBottomOf="@id/text_privacy" />
+                </android.support.constraint.ConstraintLayout>
+
+
+                <Button
+                    android:layout_width="@dimen/dp_64"
+                    android:layout_height="@dimen/dp_32"
+                    android:layout_marginRight="@dimen/dp_16"
+                    android:background="@drawable/post_button_background"
+                    android:onClick="@{()-> viewModel.onPostClick(post)}"
+                    android:text="@string/post"
+                    android:textColor="@color/colorPrimary"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </android.support.constraint.ConstraintLayout>
+        </android.support.v7.widget.CardView>
+
+        <EditText
+            android:id="@+id/text_content"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="0dp"
+            android:background="@null"
+            android:gravity="top"
+            android:hint="@string/what_is_in_your_mind"
+            android:minHeight="@dimen/dp_200"
+            android:padding="@dimen/dp_8"
+            app:layout_constraintBottom_toTopOf="@id/image_container"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/actionbar_container" />
+
+        <LinearLayout
+            android:id="@+id/image_container"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_0"
+            android:orientation="horizontal"
+            android:padding="@dimen/dp_8"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/bottom_container"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent">
+
+            <RelativeLayout
+                android:id="@+id/remove_img_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/img_post_upload"
+                    android:layout_width="@dimen/dp_86"
+                    android:layout_height="@dimen/dp_86"
+                    android:background="@android:color/black" />
+
+                <ImageButton
+                    android:layout_width="@dimen/dp_16"
+                    android:layout_height="@dimen/dp_16"
+                    android:layout_marginLeft="@dimen/dp__24"
+                    android:layout_marginTop="@dimen/dp_4"
+                    android:layout_toRightOf="@id/img_post_upload"
+                    android:background="@null"
+                    android:padding="@dimen/dp_8"
+                    android:src="@drawable/ic_exit" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/bottom_container"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="@dimen/dp_48"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/camera_button"
+                    android:layout_width="@dimen/dp_32"
+                    android:layout_height="@dimen/dp_32"
+                    android:layout_marginLeft="@dimen/dp_24"
+                    android:background="@null"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_photo_camera" />
+
+                <ImageButton
+                    android:clickable="false"
+                    android:id="@+id/image_button"
+                    android:layout_width="@dimen/dp_32"
+                    android:layout_height="@dimen/dp_32"
+                    android:layout_marginLeft="@dimen/dp_32"
+                    android:background="@null"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_img" />
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+    </android.support.constraint.ConstraintLayout>
+</layout>
