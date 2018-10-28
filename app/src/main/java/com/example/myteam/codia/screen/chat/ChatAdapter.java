@@ -1,12 +1,14 @@
 package com.example.myteam.codia.screen.chat;
 
 import android.content.Context;
+import android.opengl.Visibility;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.myteam.codia.R;
@@ -33,6 +35,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 public class ChatAdapter extends ListAdapter<Message> {
 
+    public void setListener(ChatContract.ChatListener mListener) {
+        this.mListener = mListener;
+    }
+
+    private ChatContract.ChatListener mListener;
     private LayoutInflater mLayoutInflater;
     private String mUserLoginId;
     private final int VIEW_TYPE_1 = 1; // receive
@@ -95,27 +102,48 @@ public class ChatAdapter extends ListAdapter<Message> {
 
     class ViewHolder extends RecyclerView.ViewHolder {
         private TextView messageText;
+        private ImageView messageImage;
         private TextView time;
         private CircleImageView avatar;
-        private Message mMessage;
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
             messageText = itemView.findViewById(R.id.text_message);
+            messageImage = itemView.findViewById(R.id.image_message);
             time = itemView.findViewById(R.id.text_time);
             avatar = itemView.findViewById(R.id.avatar);
+
+            messageImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mListener == null) return;
+                    mListener.onSelect(messageText.getText().toString());
+                }
+            });
         }
 
-        public void bindData(Message element) {
+        void bindData(Message element) {
             if (element == null) return;
-            mMessage = element;
-            messageText.setText(mMessage.getMessage());
-            time.setText(mMessage.getTime());
-            setAvatar(mMessage.getFrom());
-            if (mMessage.ShowAvatar) avatar.setVisibility(View.VISIBLE);
-            else avatar.setVisibility(View.INVISIBLE);
-            if (mMessage.ShowTime) time.setVisibility(View.VISIBLE);
-            else time.setVisibility(View.GONE);
+            messageText.setText(element.getMessage());
+            time.setText(element.getTime());
+            setAvatar(element.getFrom());
+            if (element.ShowAvatar)
+                avatar.setVisibility(View.VISIBLE);
+            else
+                avatar.setVisibility(View.INVISIBLE);
+            if (element.ShowTime)
+                time.setVisibility(View.VISIBLE);
+            else
+                time.setVisibility(View.GONE);
+
+            if (element.getType().equals(Message.MessageEntity.TypeImage)) {
+                messageText.setVisibility(View.GONE);
+                messageImage.setVisibility(View.VISIBLE);
+                Picasso.get().load(element.getMessage()).resizeDimen(R.dimen.dp_100, R.dimen.dp_100).into(messageImage);
+            } else {
+                messageText.setVisibility(View.VISIBLE);
+                messageImage.setVisibility(View.GONE);
+            }
 
         }
 
@@ -139,22 +167,41 @@ public class ChatAdapter extends ListAdapter<Message> {
 
     class ViewHolderSend extends RecyclerView.ViewHolder {
         private TextView messageText;
+        private ImageView messageImage;
         private TextView time;
-        private Message mMessage;
 
-        public ViewHolderSend(View itemView) {
+        ViewHolderSend(View itemView) {
             super(itemView);
             messageText = itemView.findViewById(R.id.text_message);
+            messageImage = itemView.findViewById(R.id.image_message);
             time = itemView.findViewById(R.id.text_time);
+
+            messageImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mListener == null) return;
+                    mListener.onSelect(messageText.getText().toString());
+                }
+            });
         }
 
-        public void bindData(Message element) {
+        void bindData(Message element) {
             if (element == null) return;
-            mMessage = element;
-            messageText.setText(mMessage.getMessage());
-            time.setText(mMessage.getTime());
-            if (mMessage.ShowTime) time.setVisibility(View.VISIBLE);
-            else time.setVisibility(View.GONE);
+            messageText.setText(element.getMessage());
+            time.setText(element.getTime());
+            if (element.ShowTime)
+                time.setVisibility(View.VISIBLE);
+            else
+                time.setVisibility(View.GONE);
+
+            if (element.getType().equals(Message.MessageEntity.TypeImage)) {
+                messageText.setVisibility(View.GONE);
+                messageImage.setVisibility(View.VISIBLE);
+                Picasso.get().load(element.getMessage()).resizeDimen(R.dimen.dp_100, R.dimen.dp_100).into(messageImage);
+            } else {
+                messageText.setVisibility(View.VISIBLE);
+                messageImage.setVisibility(View.GONE);
+            }
         }
     }
 }

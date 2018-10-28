@@ -25,8 +25,6 @@ import com.example.myteam.codia.databinding.FragmentSearchBinding;
 import com.example.myteam.codia.screen.chat.ChatActivity;
 import com.example.myteam.codia.screen.main.MainActivity;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 

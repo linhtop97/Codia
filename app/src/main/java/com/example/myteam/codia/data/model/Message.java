@@ -85,7 +85,7 @@ public class Message implements Parcelable {
         mType = type;
     }
 
-    public boolean isSeen() {
+    public boolean getSeen() {
         return mSeen;
     }
 
@@ -188,5 +188,10 @@ public class Message implements Parcelable {
         public static final String FROM = "from";
 
         public static final String TypeText = "text";
+        public static final String TypeImage = "image";
+        public static final String TypeVideo = "video";
+
+        public static final String STORAGE_IMAGE = "Messages_Image";
+        public static final String STORAGE_VIDEO = "Messages_Video";
     }
 }

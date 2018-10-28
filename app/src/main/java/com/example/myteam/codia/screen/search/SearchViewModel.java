@@ -113,11 +113,11 @@ public class SearchViewModel extends BaseObservable implements SearchContract.Vi
     @Override
     public void FindFriend(String value) {
         mResult.clear();
-        for (User item : mUserList
-                ) {
-            if (item.getDisplayName().toLowerCase().contains(value.toLowerCase())
-                    || item.getEmail().toLowerCase().contains(value.toLowerCase()))
-                mResult.add(item);
-        }
+        if (value != null && !value.isEmpty())
+            for (User item : mUserList) {
+                if (item.getDisplayName().toLowerCase().contains(value.toLowerCase())
+                        || item.getEmail().toLowerCase().contains(value.toLowerCase()))
+                    mResult.add(item);
+            }
     }
 }

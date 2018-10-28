@@ -1,13 +1,11 @@
 package com.example.myteam.codia.screen.chat;
 
-import android.widget.Adapter;
+import android.net.Uri;
+import android.os.Parcelable;
 
-import com.example.myteam.codia.data.model.Message;
 import com.example.myteam.codia.data.model.User;
 import com.example.myteam.codia.screen.base.BasePresenter;
 import com.example.myteam.codia.screen.base.BaseViewModel;
-
-import java.util.List;
 
 /**
  * Created by khanhjm on 22-10-2018.
@@ -20,9 +18,15 @@ public interface ChatContract {
 
         void ScrollRecycleView();
 
-        void LoadMessage(ChatAdapter adapter);
+        void StopRefresh();
+
+        void LoadMessage();
+
+        void LoadMore();
 
         void sendMessage(String message);
+
+        void upload(Uri uri);
 
         void getProfileSuccessful(User user);
 
@@ -30,8 +34,16 @@ public interface ChatContract {
     }
 
     interface Presenter extends BasePresenter {
-        void LoadMessage(ChatAdapter adapter);
+        void LoadMessage();
+
+        void LoadMore();
 
         void sendMessage(String message);
+
+        void upload(Uri uri);
+    }
+
+    interface ChatListener extends Parcelable {
+        void onSelect(String link);
     }
 }

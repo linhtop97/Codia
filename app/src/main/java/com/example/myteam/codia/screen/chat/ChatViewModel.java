@@ -3,6 +3,9 @@ package com.example.myteam.codia.screen.chat;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.databinding.BaseObservable;
+import android.net.Uri;
+import android.support.v7.widget.LinearLayoutManager;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.myteam.codia.R;
@@ -21,35 +24,12 @@ public class ChatViewModel extends BaseObservable implements ChatContract.ViewMo
 
     private ChatContract.Presenter mPresenter;
     private Context mContext;
+    private ChatAdapter mAdapter;
+    private LinearLayoutManager mLinearLayoutManager;
     private ProgressDialog mDialog;
     private String mUserChatId;
     private String mUserLoginId;
-    private User mUserChat;
     private List<Message> mMessageList = new ArrayList<>();
-
-    public String getUserLoginId() {
-        return mUserLoginId;
-    }
-
-    public void setUserLoginId(String userLoginId) {
-        mUserLoginId = userLoginId;
-    }
-
-    public String getUserChatId() {
-        return mUserChatId;
-    }
-
-    public void setChatUserId(String userChatId) {
-        mUserChatId = userChatId;
-    }
-
-    public List<Message> getMessageList() {
-        return mMessageList;
-    }
-
-    public void setMessageList(List<Message> messageList) {
-        mMessageList = messageList;
-    }
 
     public ChatViewModel(Context context, String userChatId) {
         mContext = context;
@@ -79,8 +59,13 @@ public class ChatViewModel extends BaseObservable implements ChatContract.ViewMo
     }
 
     @Override
-    public void LoadMessage(ChatAdapter adapter) {
-        mPresenter.LoadMessage(adapter);
+    public void LoadMessage() {
+        mPresenter.LoadMessage();
+    }
+
+    @Override
+    public void LoadMore() {
+        mPresenter.LoadMore();
     }
 
     @Override
@@ -91,8 +76,12 @@ public class ChatViewModel extends BaseObservable implements ChatContract.ViewMo
     }
 
     @Override
+    public void upload(Uri uri) {
+        mPresenter.upload(uri);
+    }
+
+    @Override
     public void getProfileSuccessful(User user) {
-        mUserChat = user;
     }
 
     @Override
@@ -113,5 +102,49 @@ public class ChatViewModel extends BaseObservable implements ChatContract.ViewMo
     @Override
     public void setPresenter(ChatContract.Presenter presenter) {
         mPresenter = presenter;
+    }
+
+    public void StopRefresh() {
+        ((ChatActivity) mContext).StopRefresh();
+    }
+
+    public String getUserLoginId() {
+        return mUserLoginId;
+    }
+
+    public void setUserLoginId(String userLoginId) {
+        mUserLoginId = userLoginId;
+    }
+
+    public String getUserChatId() {
+        return mUserChatId;
+    }
+
+    public void setChatUserId(String userChatId) {
+        mUserChatId = userChatId;
+    }
+
+    public List<Message> getMessageList() {
+        return mMessageList;
+    }
+
+    public void setMessageList(List<Message> messageList) {
+        mMessageList = messageList;
+    }
+
+    public ChatAdapter getAdapter() {
+        return mAdapter;
+    }
+
+    public void setAdapter(ChatAdapter adapter) {
+        mAdapter = adapter;
+    }
+
+    public LinearLayoutManager getLinearLayoutManager() {
+        return mLinearLayoutManager;
+    }
+
+    public void setLinearLayoutManager(LinearLayoutManager linearLayoutManager) {
+        mLinearLayoutManager = linearLayoutManager;
     }
 }

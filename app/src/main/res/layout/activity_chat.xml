@@ -112,14 +112,20 @@
 
         </android.support.constraint.ConstraintLayout>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rvMessage"
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefreshLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@id/layout_footer"
-            android:layout_below="@id/layout_header"
-            android:background="@color/textColorHint"
-            android:stackFromBottom="true" />
+            android:layout_below="@id/layout_header">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvMessage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/textColorHint"
+                android:stackFromBottom="true" />
+        </android.support.v4.widget.SwipeRefreshLayout>
 
         <TextView
             android:layout_width="@dimen/dp_0"
@@ -171,10 +177,10 @@
                 android:id="@+id/edtContent"
                 android:layout_width="@dimen/dp_0"
                 android:layout_height="wrap_content"
-                android:minHeight="@dimen/dp_32"
                 android:layout_marginBottom="@dimen/dp_4"
                 android:background="@drawable/custom_edittext_chat"
                 android:hint="@string/type_a_message"
+                android:minHeight="@dimen/dp_32"
                 android:paddingLeft="@dimen/dp_8"
                 android:paddingRight="@dimen/dp_8"
                 android:textColorHighlight="@color/colorPrimary"

@@ -35,9 +35,16 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/dp_2"
             android:paddingTop="@dimen/dp_4"
-            android:text="hihi asfa sf asfasfas asf asf asf asf asf asf asffasf af"
+            android:text="receive"
             android:textColor="@color/textColorMessagePrimary"
             android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/image_message"
+            android:layout_width="@dimen/dp_100"
+            android:layout_height="@dimen/dp_100"
+            android:layout_margin="@dimen/dp_4"
+            android:src="@drawable/ic_image" />
 
         <TextView
             android:id="@+id/text_time"
@@ -45,7 +52,7 @@
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/dp_2"
             android:paddingBottom="@dimen/dp_2"
-            android:text="15:20"
+            android:text="15:00"
             android:textColor="@color/textColorMessageSecondary"
             android:textSize="10sp" />
     </LinearLayout>
