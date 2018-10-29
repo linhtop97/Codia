@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="post"
+            type="com.example.myteam.codia.data.model.Post" />
+
+        <variable
+            name="user"
+            type="com.example.myteam.codia.data.model.User" />
+    </data>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/dp_4">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:padding="@dimen/dp_8">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/img_avartar"
+                android:layout_width="@dimen/dp_48"
+                android:layout_height="@dimen/dp_48"
+                android:background="@drawable/background"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_display_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_12"
+                android:text="@{user.displayName}"
+                android:textColor="@color/textViewColorPrimary"
+                android:textSize="@dimen/sp_18"
+                app:layout_constraintLeft_toRightOf="@id/img_avartar"
+                app:layout_constraintTop_toTopOf="@id/img_avartar" />
+
+            <LinearLayout
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_12"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintLeft_toRightOf="@id/img_avartar"
+                app:layout_constraintRight_toLeftOf="@id/option_button"
+                app:layout_constraintTop_toBottomOf="@id/text_display_name">
+
+                <TextView
+                    android:id="@+id/text_date_created"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="time created" />
+
+                <ImageButton
+                    android:layout_width="@dimen/dp_12"
+                    android:layout_height="@dimen/dp_12"
+                    android:layout_marginLeft="@dimen/dp_12"
+                    android:background="@android:color/black" />
+            </LinearLayout>
+
+
+            <ImageButton
+                android:id="@+id/option_button"
+                android:layout_width="@dimen/dp_48"
+                android:layout_height="@dimen/dp_48"
+                android:background="@null"
+                android:padding="@dimen/dp_8"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_more_option_horizontal_black"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_content"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_8"
+                android:text="@{post.content}"
+                android:textColor="@color/textViewColorPrimary"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/img_avartar" />
+
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="@dimen/dp_200"
+                android:layout_marginTop="@dimen/dp_8"
+                android:background="@android:color/black"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_content" />
+
+            <ImageView
+                android:id="@+id/like_button"
+                android:layout_width="@dimen/dp_48"
+                android:layout_height="@dimen/dp_48"
+                android:layout_marginTop="@dimen/dp_8"
+                android:padding="@dimen/dp_8"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_heart"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/image" />
+
+            <TextView
+                android:id="@+id/text_like_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_8"
+                android:text="100"
+                android:textColor="@color/textViewColorSecondary"
+                app:layout_constraintBottom_toBottomOf="@id/like_button"
+                app:layout_constraintLeft_toRightOf="@id/like_button"
+                app:layout_constraintTop_toTopOf="@id/like_button" />
+
+            <ImageView
+                android:id="@+id/comment_button"
+                android:layout_width="@dimen/dp_48"
+                android:layout_height="@dimen/dp_48"
+                android:layout_marginLeft="@dimen/dp_48"
+                android:padding="@dimen/dp_8"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_message_black"
+                app:layout_constraintBottom_toBottomOf="@id/like_button"
+                app:layout_constraintLeft_toRightOf="@id/text_like_count"
+                app:layout_constraintTop_toTopOf="@id/like_button" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_8"
+                android:text="20"
+                android:textColor="@color/textViewColorSecondary"
+                app:layout_constraintBottom_toBottomOf="@id/comment_button"
+                app:layout_constraintLeft_toRightOf="@id/comment_button"
+                app:layout_constraintTop_toTopOf="@id/comment_button" />
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
+
+</layout>

@@ -7,6 +7,10 @@
         <variable
             name="user"
             type="com.example.myteam.codia.data.model.User" />
+
+        <variable
+            name="viewModel"
+            type="com.example.myteam.codia.screen.profile.ProfileViewModel" />
     </data>
 
     <android.support.design.widget.CoordinatorLayout
@@ -23,7 +27,8 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_48"
-                bind:layout_scrollFlags="scroll|enterAlways" />
+                bind:layout_scrollFlags="scroll|enterAlways"
+                bind:title="@{user.displayName}" />
         </android.support.design.widget.AppBarLayout>
 
         <android.support.v4.widget.NestedScrollView
@@ -409,5 +414,15 @@
                     android:layout_marginTop="@dimen/dp_16" />
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
+
+        <ImageButton
+            android:layout_width="@dimen/dp_56"
+            android:layout_height="@dimen/dp_56"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/dp_16"
+            android:padding="@dimen/dp_16"
+            android:background="@drawable/button_shadow_fab"
+            android:onClick="@{()-> viewModel.onAddTimeLineClick()}"
+            android:src="@drawable/ic_add" />
     </android.support.design.widget.CoordinatorLayout>
 </layout>

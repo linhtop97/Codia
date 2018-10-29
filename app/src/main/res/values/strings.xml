@@ -51,4 +51,13 @@
     <string name="plan">Plan</string>
     <string name="edit">EDIT</string>
     <string name="please_wait">Please wait ....</string>
+
+    <string name="post">POST</string>
+    <string name="privacy">Privacy</string>
+    <string name="Public">Public</string>
+    <string name="what_is_in_your_mind">What\'s in your mind?</string>
+    <string name="only_me">Only Me</string>
+    <string name="special_friend">Special Friends</string>
+    <string name="create_post_failed">Create post failed</string>
+    <string name="up_loading">Up loading…</string>
 </resources>

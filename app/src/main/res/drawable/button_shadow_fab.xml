@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <layer-list>
+            <item>
+                <shape android:shape="oval">
+                    <gradient android:endColor="#00000000" android:gradientRadius="31dp"
+
+                        android:startColor="#FF000000" android:type="radial" />
+                </shape>
+            </item>
+            <item android:bottom="2dp">
+                <shape android:shape="oval">
+                    <size android:width="48dp" android:height="@dimen/dp_48" />
+                    <solid android:color="#1F95C6" />
+                </shape>
+            </item>
+
+
+        </layer-list>
+    </item>
+
+</selector>

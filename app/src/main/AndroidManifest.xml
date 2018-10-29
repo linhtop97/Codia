@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.myteam.codia">
-
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.PERMISSION_REQUEST_EXTERNAL_STORAGE" />
-
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
     <application
         android:name=".MainApplication"
         android:allowBackup="true"
@@ -41,6 +42,13 @@
             android:name=".screen.chat.ChatActivity"
             android:parentActivityName=".screen.main.MainActivity"
             android:screenOrientation="portrait"
+            android:exported="false"
+            android:theme="@style/ProfileTheme" />
+        <activity
+            android:name=".screen.post.PostActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/ProfileTheme"
             android:windowSoftInputMode="adjustResize" />
     </application>
 

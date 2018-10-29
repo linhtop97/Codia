@@ -11,6 +11,10 @@ public final class Constant {
     public static final String EMAIL_SENDER = "nguyenbalinh06031997@gmail.com";
     public static final String PASSWORD_SENDER = "Linhnb1997";
 
+    public static final String PUBLIC = "Public";
+    public static final String FRIEND = "Friend";
+    public static final String ONLY_ME = "Only Me";
+
     public static final String EXTRA_USER = "EXTRA_USER";
     public static final String EXTRA_BUNDLE_USER = "EXTRA_USER";
 
