@@ -5,6 +5,8 @@ import android.content.Context;
 
 import com.example.myteam.codia.R;
 import com.example.myteam.codia.data.model.Post;
+import com.example.myteam.codia.data.source.remote.timeline.TimelineRemoteDataSource;
+import com.example.myteam.codia.data.source.remote.timeline.TimelineRepository;
 import com.example.myteam.codia.utils.navigator.Navigator;
 
 public class PostViewModel implements PostContract.ViewModel {
@@ -13,6 +15,7 @@ public class PostViewModel implements PostContract.ViewModel {
     private Navigator mNavigator;
     private ProgressDialog mDialog;
     private PostActivity mPostActivity;
+    private TimelineRepository mRepository;
 
     public PostViewModel(Context context, Navigator navigator) {
         mContext = context;
@@ -20,6 +23,7 @@ public class PostViewModel implements PostContract.ViewModel {
         mNavigator = navigator;
         mDialog = new ProgressDialog(context);
         mDialog.setMessage(context.getString(R.string.msg_loading));
+        mRepository = new TimelineRepository(new TimelineRemoteDataSource());
     }
 
     @Override
@@ -45,8 +49,9 @@ public class PostViewModel implements PostContract.ViewModel {
     }
 
     @Override
-    public void onPostClick(Post post) {
-
+    public void onPostClick(Post post, CreatePostCallBack callBack) {
+        //push post to DB by ID
+        mRepository.pushPost(post, callBack);
     }
 
     @Override

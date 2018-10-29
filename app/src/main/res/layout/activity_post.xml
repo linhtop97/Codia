@@ -87,11 +87,11 @@
 
 
                 <Button
+                    android:id="@+id/post_button"
                     android:layout_width="@dimen/dp_64"
                     android:layout_height="@dimen/dp_32"
                     android:layout_marginRight="@dimen/dp_16"
                     android:background="@drawable/post_button_background"
-                    android:onClick="@{()-> viewModel.onPostClick(post)}"
                     android:text="@string/post"
                     android:textColor="@color/colorPrimary"
                     app:layout_constraintBottom_toBottomOf="parent"

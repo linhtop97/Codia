@@ -12,7 +12,7 @@ public interface PostContract {
 
         void onPrivacyClick();
 
-        void onPostClick(Post post);
+        void onPostClick(Post post, CreatePostCallBack callBack);
 
         void onBackClick();
     }

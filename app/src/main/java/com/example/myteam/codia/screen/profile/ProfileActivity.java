@@ -14,12 +14,15 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.myteam.codia.R;
+import com.example.myteam.codia.data.model.Post;
 import com.example.myteam.codia.data.model.User;
 import com.example.myteam.codia.databinding.ActivityProfileBinding;
 import com.example.myteam.codia.screen.base.adapter.OnItemClickListener;
 import com.example.myteam.codia.screen.chat.ChatActivity;
 import com.example.myteam.codia.utils.Constant;
 import com.example.myteam.codia.utils.navigator.Navigator;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +36,7 @@ public class ProfileActivity extends AppCompatActivity implements OnItemClickLis
     private RecyclerAdapter adapter;
     private ActionBar mActionBar;
     private ProfileViewModel mViewModel;
+    private DatabaseReference mPostsRef;
 
     public static Intent getInstance(Context context, User user) {
         Intent intent = new Intent(context, ProfileActivity.class);
@@ -51,6 +55,8 @@ public class ProfileActivity extends AppCompatActivity implements OnItemClickLis
             mUser = bundle.getParcelable(Constant.EXTRA_USER);
             mBinding.setUser(mUser);
         }
+        mPostsRef = FirebaseDatabase.getInstance().getReference()
+                .child(Post.PostEntity.TIME_LINE).child(mUser.getId());
         initViews();
         mViewModel = new ProfileViewModel(this, new Navigator(this));
         mBinding.setViewModel(mViewModel);
@@ -65,6 +71,9 @@ public class ProfileActivity extends AppCompatActivity implements OnItemClickLis
 
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setReverseLayout(true);
+        layoutManager.setStackFromEnd(true);
+        mBinding.recycler.setHasFixedSize(true);
         mBinding.recycler.setLayoutManager(layoutManager);
         setData(); //adding data to array list
         adapter = new RecyclerAdapter(this, stringArrayList, this);
