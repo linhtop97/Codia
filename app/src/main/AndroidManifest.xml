@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.myteam.codia">
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.PERMISSION_REQUEST_EXTERNAL_STORAGE" />
+
     <application
         android:name=".MainApplication"
         android:allowBackup="true"
@@ -23,12 +26,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".screen.authentication.register.RegisterActivity">
+        <activity
+            android:name=".screen.authentication.register.RegisterActivity"
+            android:screenOrientation="portrait">
 
         </activity>
-        <activity android:name=".screen.authentication.confirm.RegisterConfirmActivity"/>
-        <activity android:name=".screen.profile.ProfileActivity"
-            android:theme="@style/ProfileTheme"/>
+        <activity
+            android:name=".screen.authentication.confirm.RegisterConfirmActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".screen.profile.ProfileActivity"
+            android:theme="@style/ProfileTheme" />
+        <activity
+            android:name=".screen.chat.ChatActivity"
+            android:parentActivityName=".screen.main.MainActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>

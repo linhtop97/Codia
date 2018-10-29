@@ -54,7 +54,7 @@ public class SearchAdapter extends ListAdapter<User> {
         private TextView displayname;
         private TextView email;
         private CircleImageView avatar;
-        private User user;
+        private User mUser;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -67,20 +67,18 @@ public class SearchAdapter extends ListAdapter<User> {
                 @Override
                 public void onClick(View v) {
                     if (mListener == null) return;
-                    mListener.onSelect(user);
+                    mListener.onSelect(mUser);
                 }
             });
         }
 
         public void bindData(User element) {
             if (element == null) return;
-            user = element;
-            displayname.setText(user.getDisplayName());
-            email.setText(user.getEmail());
-            if (user.getAvatar() == null || user.getAvatar().isEmpty())
-                Picasso.get().load(R.drawable.default_avatar).into(avatar);
-            else
-                Picasso.get().load(user.getAvatar()).into(avatar);
+            mUser = element;
+            displayname.setText(mUser.getDisplayName());
+            email.setText(mUser.getEmail());
+            if (mUser.getAvatar() != null && !mUser.getAvatar().isEmpty())
+                Picasso.get().load(mUser.getAvatar()).into(avatar);
         }
     }
 }

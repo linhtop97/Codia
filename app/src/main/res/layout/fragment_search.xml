@@ -6,9 +6,6 @@
 
     <data>
 
-        <variable
-            name="viewModel"
-            type="com.example.myteam.codia.screen.search.SearchViewModel" />
     </data>
 
     <android.support.constraint.ConstraintLayout
@@ -21,7 +18,7 @@
             android:id="@+id/layout_search_friend_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="@dimen/dp_24"
             android:paddingStart="@dimen/dp_0"
             android:paddingEnd="@dimen/dp_0"
             app:layout_constraintTop_toTopOf="parent">
@@ -47,6 +44,7 @@
                 android:hint="@string/search"
                 android:paddingLeft="@dimen/dp_16"
                 android:paddingRight="@dimen/dp_16"
+                android:singleLine="true"
                 android:textColor="@android:color/white"
                 android:textColorHint="@color/textColorHint"
                 android:textSize="16sp"
@@ -76,6 +74,7 @@
             android:id="@+id/rvFriend"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:background="@color/colorBackgroundChat"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layout_search_friend_button" />
 

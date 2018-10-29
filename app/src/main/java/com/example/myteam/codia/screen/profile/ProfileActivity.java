@@ -10,12 +10,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.myteam.codia.R;
 import com.example.myteam.codia.data.model.User;
 import com.example.myteam.codia.databinding.ActivityProfileBinding;
 import com.example.myteam.codia.screen.base.adapter.OnItemClickListener;
+import com.example.myteam.codia.screen.chat.ChatActivity;
 import com.example.myteam.codia.utils.Constant;
 
 import java.util.ArrayList;
@@ -67,6 +69,14 @@ public class ProfileActivity extends AppCompatActivity implements OnItemClickLis
         mBinding.recycler.setFocusable(false);
         mBinding.profileContainer.requestFocus();
 
+        mBinding.messageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ProfileActivity.this, ChatActivity.class);
+                intent.putExtra(User.UserEntity.ID, mUser.getId());
+                startActivity(intent);
+            }
+        });
     }
 
     private void setData() {

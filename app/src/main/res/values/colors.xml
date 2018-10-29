@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#1F95C6</color>
-    <color name="colorPrimaryDark">#104f6c</color>
+    <color name="colorPrimaryDark">#031923</color>
     <color name="colorPrimaryLight">#104f6c</color>
     <color name="colorAccent">#FFFFFF</color>
     <color name="textColorPrimary">#FFFFFF</color>
@@ -11,6 +11,12 @@
     <color name="colorControlActivated">#ffffff</color>
     <color name="textViewColorPrimary">#000000</color>
     <color name="textViewColorSecondary">#706f6f</color>
-
-
+    <color name="colorBackgroundNavigation">#fafafa</color>
+    <color name="colorBackgroundBorder">#d8d8d8</color>
+    <color name="colorBackgroundChat">#e2e9f1</color>
+    <color name="colorButtonChat">#BFBFBF</color>
+    <color name="colorMessageReceive">#FFFFFF</color>
+    <color name="colorMessageSend">#d5f0ff</color>
+    <color name="textColorMessagePrimary">#4a4a4a</color>
+    <color name="textColorMessageSecondary">#848c94</color>
 </resources>

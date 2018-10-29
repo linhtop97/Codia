@@ -6,14 +6,12 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.example.myteam.codia.BR;
-import com.example.myteam.codia.data.model.Default;
 import com.example.myteam.codia.data.model.User;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,8 +74,8 @@ public class SearchViewModel extends BaseObservable implements SearchContract.Vi
     @Override
     public void FindAllFriend() {
         mUserList.clear();
-        final DatabaseReference mData = FirebaseDatabase.getInstance().getReference();
-        mData.child(User.UserEntity.USERS).addChildEventListener(new ChildEventListener() {
+        final DatabaseReference mReference = FirebaseDatabase.getInstance().getReference();
+        mReference.child(User.UserEntity.USERS).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 String id = dataSnapshot.getKey();
@@ -115,11 +113,11 @@ public class SearchViewModel extends BaseObservable implements SearchContract.Vi
     @Override
     public void FindFriend(String value) {
         mResult.clear();
-        for (User item : mUserList
-                ) {
-            if (item.getDisplayName().toLowerCase().contains(value.toLowerCase())
-                    || item.getEmail().toLowerCase().contains(value.toLowerCase()))
-                mResult.add(item);
-        }
+        if (value != null && !value.isEmpty())
+            for (User item : mUserList) {
+                if (item.getDisplayName().toLowerCase().contains(value.toLowerCase())
+                        || item.getEmail().toLowerCase().contains(value.toLowerCase()))
+                    mResult.add(item);
+            }
     }
 }

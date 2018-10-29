@@ -1,6 +1,7 @@
 package com.example.myteam.codia.screen.search;
 
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Parcel;
@@ -21,10 +22,10 @@ import android.widget.Toast;
 import com.example.myteam.codia.R;
 import com.example.myteam.codia.data.model.User;
 import com.example.myteam.codia.databinding.FragmentSearchBinding;
+import com.example.myteam.codia.screen.chat.ChatActivity;
 import com.example.myteam.codia.screen.main.MainActivity;
+import com.example.myteam.codia.screen.profile.ProfileActivity;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -50,9 +51,9 @@ public class SearchFragment extends Fragment {
         View view = inflater.inflate(R.layout.item_search_friend, container, false);
         mViewModel = new SearchViewModel();
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_search, container, false);
-        mBinding.setViewModel(mViewModel);
         initializeRecyclerView(view);
 
+//        mBinding.setViewModel(mViewModel);
 //        SearchContract.Presenter presenter = new SearchPresenter(mViewModel);
 //        mViewModel.setPresenter(presenter);
 
@@ -147,7 +148,7 @@ public class SearchFragment extends Fragment {
     private SearchContract.SearchListener mSearchListener = new SearchContract.SearchListener() {
         @Override
         public void onSelect(User user) {
-            Toast.makeText(mMainActivity, user.getDisplayName(), Toast.LENGTH_SHORT).show();
+            startActivity(ProfileActivity.getInstance(mMainActivity, user));
         }
 
         @Override
