@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imgOnline"
+        android:id="@+id/online"
         android:layout_width="@dimen/dp_16"
         android:layout_height="@dimen/dp_16"
         android:background="@null"
@@ -43,7 +43,7 @@
             android:padding="@dimen/dp_8"
             android:singleLine="true"
             android:text="@string/display_name"
-            android:textColor="@android:color/white"
+            android:textColor="@color/textViewColorPrimary"
             android:textSize="22sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@id/text_last_time"
@@ -57,7 +57,7 @@
             android:padding="@dimen/dp_4"
             android:singleLine="true"
             android:text="@string/last_message"
-            android:textColor="@color/textColorHint"
+            android:textColor="@color/textColorMessageSecondary"
             android:textSize="16sp"
             android:textStyle="italic"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -73,7 +73,7 @@
             android:paddingTop="@dimen/dp_12"
             android:singleLine="true"
             android:text="@string/last_time"
-            android:textColor="@color/textColorHint"
+            android:textColor="@color/textColorMessageSecondary"
             android:textSize="16sp"
             android:textStyle="italic"
             app:layout_constraintRight_toRightOf="parent"

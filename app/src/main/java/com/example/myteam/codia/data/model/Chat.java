@@ -13,6 +13,9 @@ public class Chat implements Parcelable {
     private String mDateCreated;
     private String mDisplayName;
     private boolean mSeen;
+    private String mType;
+    private String mLastMessage;
+    private String mLastTime;
     private String mBackground;
     private String mColor;
 
@@ -25,6 +28,9 @@ public class Chat implements Parcelable {
         this.mDateCreated = builder.mDateCreated;
         this.mDisplayName = builder.mDisplayName;
         this.mSeen = builder.mSeen;
+        this.mType = builder.mType;
+        this.mLastMessage = builder.mLastMessage;
+        this.mLastTime = builder.mLastTime;
         this.mBackground = builder.mBackground;
         this.mColor = builder.mColor;
     }
@@ -35,6 +41,9 @@ public class Chat implements Parcelable {
         mDateCreated = in.readString();
         mDisplayName = in.readString();
         mSeen = in.readByte() != 0;
+        mType = in.readString();
+        mLastMessage = in.readString();
+        mLastTime = in.readString();
         mBackground = in.readString();
         mColor = in.readString();
     }
@@ -83,12 +92,36 @@ public class Chat implements Parcelable {
         mDisplayName = displayName;
     }
 
-    public boolean isSeen() {
+    public boolean getSeen() {
         return mSeen;
     }
 
     public void setSeen(boolean seen) {
         mSeen = seen;
+    }
+
+    public String getType() {
+        return mType;
+    }
+
+    public void setType(String type) {
+        mType = type;
+    }
+
+    public String getLastMessage() {
+        return mLastMessage;
+    }
+
+    public void setLastMessage(String lastMessage) {
+        mLastMessage = lastMessage;
+    }
+
+    public String getLastTime() {
+        return mLastTime;
+    }
+
+    public void setLastTime(String lastTime) {
+        mLastTime = lastTime;
     }
 
     public String getBackground() {
@@ -119,6 +152,9 @@ public class Chat implements Parcelable {
         dest.writeString(mDateCreated);
         dest.writeString(mDisplayName);
         dest.writeByte((byte) (mSeen ? 1 : 0));
+        dest.writeString(mType);
+        dest.writeString(mLastMessage);
+        dest.writeString(mLastTime);
         dest.writeString(mBackground);
         dest.writeString(mColor);
     }
@@ -129,6 +165,9 @@ public class Chat implements Parcelable {
         private String mDateCreated;
         private String mDisplayName;
         private boolean mSeen;
+        private String mType;
+        private String mLastMessage;
+        private String mLastTime;
         private String mBackground;
         private String mColor;
 
@@ -158,6 +197,21 @@ public class Chat implements Parcelable {
             return this;
         }
 
+        public Builder setType(String type) {
+            mType = type;
+            return this;
+        }
+
+        public Builder setLastMessage(String lastMessage) {
+            mLastMessage = lastMessage;
+            return this;
+        }
+
+        public Builder setLastTime(String lastTime) {
+            mLastTime = lastTime;
+            return this;
+        }
+
         public Builder setBackground(String background) {
             mBackground = background;
             return this;
@@ -181,7 +235,13 @@ public class Chat implements Parcelable {
         public static final String DATECREATED = "dateCreated";
         public static final String DISPLAYNAME = "displayName";
         public static final String SEEN = "seen";
+        public static final String TYPE = "type";
+        public static final String LASTMESSAGE = "lastMessage";
+        public static final String LASTTIME = "lastTime";
         public static final String BACKGROUND = "background";
         public static final String COLOR = "color";
+
+        public static final String TYPE_PERSON = "person";
+        public static final String TYPE_GROUP = "group";
     }
 }

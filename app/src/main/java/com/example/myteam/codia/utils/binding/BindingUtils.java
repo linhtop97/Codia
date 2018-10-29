@@ -24,7 +24,7 @@ public final class BindingUtils {
 
     @BindingAdapter({"bind:imgAvatar"})
     public static void setImageAvartar(CircleImageView imageView, String urlImage) {
-        if (urlImage == null) {
+        if (urlImage == null || urlImage.isEmpty()) {
             imageView.setImageResource(R.drawable.default_avatar);
         } else {
             Picasso.get().load(urlImage).placeholder(R.drawable.default_avatar)

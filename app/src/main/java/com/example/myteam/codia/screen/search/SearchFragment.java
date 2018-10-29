@@ -24,6 +24,7 @@ import com.example.myteam.codia.data.model.User;
 import com.example.myteam.codia.databinding.FragmentSearchBinding;
 import com.example.myteam.codia.screen.chat.ChatActivity;
 import com.example.myteam.codia.screen.main.MainActivity;
+import com.example.myteam.codia.screen.profile.ProfileActivity;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -147,10 +148,7 @@ public class SearchFragment extends Fragment {
     private SearchContract.SearchListener mSearchListener = new SearchContract.SearchListener() {
         @Override
         public void onSelect(User user) {
-            Toast.makeText(mMainActivity, user.getDisplayName(), Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(mMainActivity, ChatActivity.class);
-            intent.putExtra(User.UserEntity.ID, user.getId());
-            startActivity(intent);
+            startActivity(ProfileActivity.getInstance(mMainActivity, user));
         }
 
         @Override

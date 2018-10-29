@@ -58,7 +58,6 @@ public class ChatActivity extends AppCompatActivity implements DataCallback<User
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
         String userChatId = getIntent().getStringExtra(User.UserEntity.ID);
-//        String userLoginId = new SharedPrefsImpl(this).get(User.UserEntity.ID, String.class);
         mNavigator = new Navigator(this);
 
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_chat);

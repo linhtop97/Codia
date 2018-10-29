@@ -154,7 +154,10 @@ public class ChatAdapter extends ListAdapter<Message> {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             String link = (String) dataSnapshot.child(User.UserEntity.AVATAR).getValue();
-                            Picasso.get().load(link).into(avatar);
+                            if (link == null || link.isEmpty())
+                                avatar.setImageResource(R.drawable.ic_profile);
+                            else
+                                Picasso.get().load(link).into(avatar);
                         }
 
                         @Override

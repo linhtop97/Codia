@@ -6,12 +6,14 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.example.myteam.codia.R;
+import com.example.myteam.codia.data.model.Chat;
 import com.example.myteam.codia.data.model.Message;
 import com.example.myteam.codia.data.model.User;
 import com.example.myteam.codia.data.source.remote.auth.DataCallback;
 import com.example.myteam.codia.utils.DateTimeUtils;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -193,7 +195,7 @@ public class ChatPresenter implements ChatContract.Presenter {
     }
 
     @Override
-    public void sendMessage(String message) {
+    public void sendMessage(final String message) {
         DatabaseReference message_push = mReference.child(Message.MessageEntity.CLASS)
                 .child(mUserLoginId).child(mUserChatId).push();
         String push_id = message_push.getKey();
@@ -214,9 +216,30 @@ public class ChatPresenter implements ChatContract.Presenter {
             public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
                 if (databaseError != null) {
                     Log.d("SEND_MESSAGE_LOG", databaseError.getMessage());
+                } else {
+                    Map chatMap = new HashMap();
+                    chatMap.put(Chat.ChatEntity.CHAT_ID, mUserLoginId);
+                    chatMap.put(Chat.ChatEntity.LASTMESSAGE, message);
+                    chatMap.put(Chat.ChatEntity.LASTTIME, DateTimeUtils.getCurrentTime());
+                    chatMap.put(Chat.ChatEntity.SEEN, false);
+
+                    Map chatUserMap = new HashMap();
+                    chatUserMap.put(Chat.ChatEntity.CLASS + "/" + mUserLoginId + "/" + mUserChatId, chatMap);
+                    chatUserMap.put(Chat.ChatEntity.CLASS + "/" + mUserChatId + "/" + mUserLoginId, chatMap);
+
+                    mReference.updateChildren(chatUserMap, new DatabaseReference.CompletionListener() {
+                        @Override
+                        public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
+                            if (databaseError != null) {
+                                Log.d("UPDATE_CHAT_LOG", databaseError.getMessage());
+                            }
+                        }
+                    });
                 }
             }
         });
+
+
     }
 
     @Override
