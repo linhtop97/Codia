@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.myteam.codia.R;
 import com.example.myteam.codia.data.model.User;
@@ -57,7 +58,7 @@ public class MoreFragment extends Fragment implements DataCallback<User>, View.O
 
     @Override
     public void onGetDataFailed(String msg) {
-
+        Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
     }
 
     @Override

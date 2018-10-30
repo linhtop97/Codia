@@ -4,8 +4,14 @@ import android.app.ProgressDialog;
 import android.content.Context;
 
 import com.example.myteam.codia.R;
+import com.example.myteam.codia.data.model.Post;
+import com.example.myteam.codia.data.source.remote.auth.DataCallback;
+import com.example.myteam.codia.data.source.remote.timeline.TimelineRemoteDataSource;
+import com.example.myteam.codia.data.source.remote.timeline.TimelineRepository;
 import com.example.myteam.codia.screen.post.PostActivity;
 import com.example.myteam.codia.utils.navigator.Navigator;
+
+import java.util.List;
 
 public class ProfileViewModel implements ProfileContract.ViewModel {
 
@@ -80,6 +86,16 @@ public class ProfileViewModel implements ProfileContract.ViewModel {
     @Override
     public void onViewFriendClick() {
 
+    }
+
+    @Override
+    public void getAllPostSuccessFull(List<Post> posts) {
+
+    }
+
+    @Override
+    public void getAllUserPost(String uidUser, DataCallback<List<Post>> callback) {
+        new TimelineRepository(new TimelineRemoteDataSource()).getListPost(uidUser, callback);
     }
 
     @Override

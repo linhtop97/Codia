@@ -2,6 +2,7 @@ package com.example.myteam.codia.data.source.remote.auth;
 
 import android.net.Uri;
 ;
+import com.example.myteam.codia.data.model.User;
 import com.example.myteam.codia.screen.authentication.confirm.CreateUserCallback;
 import com.example.myteam.codia.screen.authentication.register.EmailExistsCallback;
 import com.google.firebase.auth.FirebaseUser;
@@ -11,6 +12,11 @@ public class AuthenicationRepository implements AuthenicationDataSource.RemoteDa
 
     public AuthenicationRepository(AuthenicationDataSource.RemoteDataSource remoteDataSource) {
         mRemoteDataSource = remoteDataSource;
+    }
+
+    @Override
+    public void getUserCodia(String userId, DataCallback<User> callback) {
+        mRemoteDataSource.getUserCodia(userId, callback);
     }
 
     @Override

@@ -4,10 +4,9 @@ import java.util.List;
 
 public class Post {
     private String mId;
+    private String mUidUser;
     private String mDateCreated;
     private String mContent;
-
-
     private String mImage;
     private Boolean mIsEdited;
     private String mPrivacy;
@@ -19,6 +18,7 @@ public class Post {
 
     public Post(Builder builder) {
         this.mId = builder.mId;
+        this.mUidUser = builder.mUidUser;
         this.mDateCreated = builder.mDateCreated;
         this.mImage = builder.mImage;
         this.mIsEdited = builder.mIsEdited;
@@ -30,6 +30,7 @@ public class Post {
 
     public static class Builder {
         private String mId;
+        private String mUidUser;
         private String mDateCreated;
         private String mImage;
         private Boolean mIsEdited;
@@ -47,6 +48,12 @@ public class Post {
             mId = id;
             return this;
         }
+
+        public Builder setUidUser(String uidUser) {
+            mUidUser = uidUser;
+            return this;
+        }
+
 
         public Builder setDateCreated(String dateCreated) {
             mDateCreated = dateCreated;
@@ -100,6 +107,15 @@ public class Post {
     }
 
 
+    public String getUidUser() {
+        return mUidUser;
+    }
+
+    public Post setUidUser(String uidUser) {
+        mUidUser = uidUser;
+        return this;
+    }
+
     public void setDateCreated(String dateCreated) {
         mDateCreated = dateCreated;
     }
@@ -142,7 +158,8 @@ public class Post {
         public static final String PRIVACY = "privacy";
         public static final String COMMENT = "comments";
         public static final String CONTENT = "content";
-        public static final String IMAGE = "images";
-        public static final String IS_EDITED = "isEdited";
+        public static final String IMAGE = "image";
+        public static final String IS_EDITED = "edited";
+        public static final String UID_USER = "uidUser";
     }
 }
