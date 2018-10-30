@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class ListAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -52,6 +53,16 @@ public abstract class ListAdapter<T> extends RecyclerView.Adapter<RecyclerView.V
             mData = data;
         } else {
             mData.addAll(data);
+        }
+        notifyDataSetChanged();
+    }
+
+    public void addData(T data) {
+        if (mData == null) {
+            mData = new ArrayList<>();
+            mData.add(data);
+        } else {
+            mData.add(data);
         }
         notifyDataSetChanged();
     }

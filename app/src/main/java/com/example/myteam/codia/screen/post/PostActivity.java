@@ -24,8 +24,10 @@ import com.example.myteam.codia.MainApplication;
 import com.example.myteam.codia.R;
 import com.example.myteam.codia.data.model.Post;
 import com.example.myteam.codia.data.source.local.sharedprf.SharedPrefsImpl;
+import com.example.myteam.codia.data.source.local.sharedprf.SharedPrefsKey;
 import com.example.myteam.codia.databinding.ActivityPostBinding;
 import com.example.myteam.codia.utils.Constant;
+import com.example.myteam.codia.utils.DateTimeUtils;
 import com.example.myteam.codia.utils.ImageUtils;
 import com.example.myteam.codia.utils.navigator.Navigator;
 
@@ -42,10 +44,12 @@ public class PostActivity extends AppCompatActivity implements PrivacyBottomShee
     private static final int MY_CAMERA_PERMISSION_CODE = 111;
     private Navigator mNavigator = new Navigator(this);
     private ProgressDialog mDialog;
+    private SharedPrefsImpl mSharedPrefs;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mSharedPrefs = new SharedPrefsImpl(this);
         mDialog = new ProgressDialog(this);
         mDialog.setMessage(getString(R.string.up_loading));
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_post);
@@ -107,18 +111,20 @@ public class PostActivity extends AppCompatActivity implements PrivacyBottomShee
                     Toast.makeText(this, "Bạn chưa nhập nội dung!", Toast.LENGTH_SHORT).show();
                 } else {
                     Post post = new Post.Builder()
+                            .setUidUser(mSharedPrefs.get(SharedPrefsKey.PREF_USER_ID, String.class))
                             .setEdited(false)
                             .setContent(mBinding.textContent.getText().toString())
                             .setComments(null)
                             .setPrivacy(mBinding.textPrivacyContent.getText().toString())
+                            .setDateCreated(DateTimeUtils.getCurrentTime()+"")
                             .build();
-                    try{
-                    if (mBinding.imgPostUpload.getVisibility() == View.VISIBLE) {
-                        Bitmap bitmap = ((BitmapDrawable) mBinding.imgPostUpload.getDrawable()).getBitmap();
-                        String images = ImageUtils.BitMapToString(bitmap);
-                        post.setImage(images);
-                    }}
-                    catch (Exception ex){
+                    try {
+                        if (mBinding.imgPostUpload.getVisibility() == View.VISIBLE) {
+                            Bitmap bitmap = ((BitmapDrawable) mBinding.imgPostUpload.getDrawable()).getBitmap();
+                            String images = ImageUtils.BitMapToString(bitmap);
+                            post.setImage(images);
+                        }
+                    } catch (Exception ex) {
                         //img not available
                     }
                     mViewModel.onPostClick(post, this);

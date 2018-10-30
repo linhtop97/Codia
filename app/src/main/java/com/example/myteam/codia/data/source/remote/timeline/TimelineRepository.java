@@ -30,6 +30,6 @@ public class TimelineRepository implements TimelineDataSource.RemoteDataSource {
 
     @Override
     public void getListPost(String uidUser, DataCallback<List<Post>> callback) {
-
+        mTimelineRemoteDataSource.getListPost(uidUser, callback);
     }
 }
