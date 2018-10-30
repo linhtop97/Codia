@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.myteam.codia.R;
@@ -105,6 +107,7 @@ public class ChatAdapter extends ListAdapter<Message> {
         private ImageView messageImage;
         private TextView time;
         private CircleImageView avatar;
+        private RelativeLayout layout;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -112,6 +115,7 @@ public class ChatAdapter extends ListAdapter<Message> {
             messageImage = itemView.findViewById(R.id.image_message);
             time = itemView.findViewById(R.id.text_time);
             avatar = itemView.findViewById(R.id.avatar);
+            layout = itemView.findViewById(R.id.layout);
 
             messageImage.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -131,11 +135,13 @@ public class ChatAdapter extends ListAdapter<Message> {
                 avatar.setVisibility(View.VISIBLE);
             else
                 avatar.setVisibility(View.INVISIBLE);
-            if (element.ShowTime)
+            if (element.ShowTime) {
                 time.setVisibility(View.VISIBLE);
-            else
+                layout.setPadding(0, 2, 0, 25);
+            } else {
                 time.setVisibility(View.GONE);
-
+                layout.setPadding(0, 2, 0, 2);
+            }
             if (element.getType().equals(Message.MessageEntity.TypeImage)) {
                 messageText.setVisibility(View.GONE);
                 messageImage.setVisibility(View.VISIBLE);
@@ -172,12 +178,14 @@ public class ChatAdapter extends ListAdapter<Message> {
         private TextView messageText;
         private ImageView messageImage;
         private TextView time;
+        private RelativeLayout layout;
 
         ViewHolderSend(View itemView) {
             super(itemView);
             messageText = itemView.findViewById(R.id.text_message);
             messageImage = itemView.findViewById(R.id.image_message);
             time = itemView.findViewById(R.id.text_time);
+            layout = itemView.findViewById(R.id.layout);
 
             messageImage.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -192,10 +200,13 @@ public class ChatAdapter extends ListAdapter<Message> {
             if (element == null) return;
             messageText.setText(element.getMessage());
             time.setText(element.getTime());
-            if (element.ShowTime)
+            if (element.ShowTime) {
                 time.setVisibility(View.VISIBLE);
-            else
+                layout.setPadding(0, 2, 0, 25);
+            } else {
                 time.setVisibility(View.GONE);
+                layout.setPadding(0, 2, 0, 2);
+            }
 
             if (element.getType().equals(Message.MessageEntity.TypeImage)) {
                 messageText.setVisibility(View.GONE);

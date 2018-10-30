@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
 
         mBinding.searchContainer.setOnClickListener(this);
+        mBinding.addButton.setOnClickListener(this);
     }
 
     private void setupBottomNav(int id) {
@@ -120,6 +121,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 mNavigator.addFragment(R.id.main_container, SearchFragment.newInstance(),
                         true, Navigator.NavigateAnim.FADED, SearchFragment.TAG);
                 mBinding.bottomNav.setVisibility(View.GONE);
+                break;
+            case R.id.add_button:
+                mViewModel.createChat();
                 break;
         }
     }

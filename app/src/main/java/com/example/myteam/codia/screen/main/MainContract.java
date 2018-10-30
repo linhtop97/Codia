@@ -12,6 +12,8 @@ public interface MainContract {
         void onLoginCurrentUser();
 
         void onLogout();
+
+        void createChat();
     }
 
     interface Presenter extends BasePresenter {
