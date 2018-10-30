@@ -9,6 +9,7 @@ import com.example.myteam.codia.MainApplication;
 import com.example.myteam.codia.R;
 import com.example.myteam.codia.data.model.User;
 import com.example.myteam.codia.data.source.local.sharedprf.SharedPrefsImpl;
+import com.example.myteam.codia.data.source.local.sharedprf.SharedPrefsKey;
 import com.example.myteam.codia.screen.authentication.confirm.CreateUserCallback;
 import com.example.myteam.codia.screen.authentication.register.EmailExistsCallback;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -18,9 +19,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.SignInMethodQueryResult;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import static com.example.myteam.codia.data.source.local.sharedprf.SharedPrefsKey.PREF_EMAIL_REGISTER;
 import static com.example.myteam.codia.data.source.local.sharedprf.SharedPrefsKey.PREF_PASSWORD_REGISTER;
@@ -36,6 +39,46 @@ public class AuthenicationRemoteDataSource implements AuthenicationDataSource.Re
         mFirebaseAuth = FirebaseAuth.getInstance();
         mDatabaseReference = FirebaseDatabase.getInstance().getReference();
         mSharedPrefs = new SharedPrefsImpl(MainApplication.getInstance());
+    }
+
+    @Override
+    public void getUserCodia(String userId, final DataCallback<User> callback) {
+        DatabaseReference userReference = FirebaseDatabase.getInstance()
+                .getReference();
+        userReference.child(User.UserEntity.USERS)
+                .child(mSharedPrefs.get(SharedPrefsKey.PREF_USER_ID, String.class))
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        String id = dataSnapshot.getKey();
+                        String avatar = (String) dataSnapshot.child(User.UserEntity.AVATAR).getValue();
+                        String cover = (String) dataSnapshot.child(User.UserEntity.COVER).getValue();
+                        String dateCreated = (String) dataSnapshot.child(User.UserEntity.DATECREATED).getValue();
+                        String displayName = (String) dataSnapshot.child(User.UserEntity.DISPLAYNAME).getValue();
+                        String email = (String) dataSnapshot.child(User.UserEntity.EMAIL).getValue();
+                        String address = (String) dataSnapshot.child(User.UserEntity.ADDRESS).getValue();
+                        String description = (String) dataSnapshot.child(User.UserEntity.DESCRIPTION).getValue();
+                        String relationship = (String) dataSnapshot.child(User.UserEntity.RELATIONSHIP).getValue();
+                        String status = (String) dataSnapshot.child(User.UserEntity.STATUS).getValue();
+                        User user = new User.Builder().setId(id)
+                                .setAvatar(avatar)
+                                .setCover(cover)
+                                .setDateCreated(dateCreated)
+                                .setDisplayName(displayName)
+                                .setEmail(email)
+                                .setAddress(address)
+                                .setDescription(description)
+                                .setRelationship(relationship)
+                                .setStatus(status)
+                                .build();
+                        callback.onGetDataSuccess(user);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        callback.onGetDataFailed(MainApplication.getInstance().getString(R.string.get_profile_error));
+                    }
+                });
     }
 
     /**

@@ -14,9 +14,10 @@
     </data>
 
     <android.support.v7.widget.CardView
+        android:layout_marginTop="@dimen/dp_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="@dimen/dp_4">
+        app:cardCornerRadius="@dimen/dp_1">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -28,7 +29,6 @@
                 android:id="@+id/img_avartar"
                 android:layout_width="@dimen/dp_48"
                 android:layout_height="@dimen/dp_48"
-                android:background="@drawable/background"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -60,10 +60,12 @@
                     android:text="time created" />
 
                 <ImageButton
+                    android:background="@color/colorPrimary"
+                    android:scaleType="fitXY"
+                    android:id="@+id/img_privacy"
                     android:layout_width="@dimen/dp_12"
                     android:layout_height="@dimen/dp_12"
-                    android:layout_marginLeft="@dimen/dp_12"
-                    android:background="@android:color/black" />
+                    android:layout_marginLeft="@dimen/dp_12"/>
             </LinearLayout>
 
 
@@ -90,9 +92,10 @@
                 app:layout_constraintTop_toBottomOf="@id/img_avartar" />
 
             <ImageView
-                android:id="@+id/image"
+                android:scaleType="centerCrop"
+                android:id="@+id/img_post"
                 android:layout_width="@dimen/dp_0"
-                android:layout_height="@dimen/dp_200"
+                android:layout_height="@dimen/dp_256"
                 android:layout_marginTop="@dimen/dp_8"
                 android:background="@android:color/black"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -104,18 +107,18 @@
                 android:layout_width="@dimen/dp_48"
                 android:layout_height="@dimen/dp_48"
                 android:layout_marginTop="@dimen/dp_8"
-                android:padding="@dimen/dp_8"
+                android:padding="@dimen/dp_16"
                 android:scaleType="fitXY"
                 android:src="@drawable/ic_heart"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/image" />
+                app:layout_constraintTop_toBottomOf="@id/img_post" />
 
             <TextView
                 android:id="@+id/text_like_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_8"
-                android:text="100"
+                android:text="0"
                 android:textColor="@color/textViewColorSecondary"
                 app:layout_constraintBottom_toBottomOf="@id/like_button"
                 app:layout_constraintLeft_toRightOf="@id/like_button"
@@ -126,7 +129,7 @@
                 android:layout_width="@dimen/dp_48"
                 android:layout_height="@dimen/dp_48"
                 android:layout_marginLeft="@dimen/dp_48"
-                android:padding="@dimen/dp_8"
+                android:padding="@dimen/dp_16"
                 android:scaleType="fitXY"
                 android:src="@drawable/ic_message_black"
                 app:layout_constraintBottom_toBottomOf="@id/like_button"
@@ -137,7 +140,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_8"
-                android:text="20"
+                android:text="0"
                 android:textColor="@color/textViewColorSecondary"
                 app:layout_constraintBottom_toBottomOf="@id/comment_button"
                 app:layout_constraintLeft_toRightOf="@id/comment_button"
