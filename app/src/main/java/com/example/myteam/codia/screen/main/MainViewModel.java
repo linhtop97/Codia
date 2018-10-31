@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.myteam.codia.R;
+import com.example.myteam.codia.data.model.Friend;
+import com.example.myteam.codia.data.model.Group;
 import com.example.myteam.codia.data.model.User;
 import com.example.myteam.codia.data.source.local.sharedprf.SharedPrefsImpl;
 import com.example.myteam.codia.data.source.local.sharedprf.SharedPrefsKey;
@@ -138,20 +140,60 @@ public class MainViewModel implements MainContract.ViewModel, DataCallback<Fireb
         getAllFriend();
     }
 
-    public void ShowDialogChooseFriend(final List<User> mUserList) {
+    public void getAllFriend() {
+        final List<Friend> mFriendList = new ArrayList<>();
+        final DatabaseReference mReference = FirebaseDatabase.getInstance().getReference();
+        mReference.child(User.UserEntity.USERS)
+                .child(mSharedPrefs.get(SharedPrefsKey.PREF_USER_ID, String.class))
+                .child(User.UserEntity.FRIEND)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        mFriendList.clear();
+                        for (DataSnapshot data : dataSnapshot.getChildren()) {
+                            String id = data.getKey();
+                            long since = (long) data.child(Friend.FriendEntity.SINCE).getValue();
+                            Friend friend = new Friend();
+                            friend.Id = id;
+                            friend.Since = String.valueOf(since);
+                            mFriendList.add(friend);
+                        }
+                        ShowDialogChooseFriend(mFriendList);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+    }
+
+    public void ShowDialogChooseFriend(final List<Friend> mUserList) {
         // list displayname to show
-        String[] mDisplayNameList = new String[mUserList.size()];
+        final String[] mDisplayNameList = new String[mUserList.size()];
         // list checked to show
         final boolean[] mCheckedItem = new boolean[mUserList.size()];
-
         // list result when click OK
         final ArrayList<Integer> mResultSelected = new ArrayList<>();
-
         // list result UserId
         final List<String> mResult = new ArrayList<>();
 
         for (int i = 0; i < mUserList.size(); i++) {
-            mDisplayNameList[i] = mUserList.get(i).getDisplayName();
+            final DatabaseReference mReference = FirebaseDatabase.getInstance().getReference();
+            final int finalI = i;
+            mReference.child(User.UserEntity.USERS).child(mUserList.get(i).Id)
+                    .addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            String displayName = (String) dataSnapshot.child(Group.GroupEntity.DISPLAYNAME).getValue();
+                            mDisplayNameList[finalI] = displayName;
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
         }
 
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(mContext);
@@ -175,8 +217,7 @@ public class MainViewModel implements MainContract.ViewModel, DataCallback<Fireb
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 for (Integer i : mResultSelected) {
-                    mResult.add(mUserList.get(i).getId());
-                    Toast.makeText(mContext, mUserList.get(i).getDisplayName(), Toast.LENGTH_SHORT).show();
+                    mResult.add(mUserList.get(i).Id);
                 }
                 if (mResult.size() == 0) return;
                 else if (mResult.size() == 1) {
@@ -184,7 +225,7 @@ public class MainViewModel implements MainContract.ViewModel, DataCallback<Fireb
                     intent.putExtra(User.UserEntity.ID, mResult.get(0));
                     mNavigator.startActivity(intent);
                 } else {
-
+                    // handle group chat
                 }
                 dialog.dismiss();
             }
@@ -207,32 +248,5 @@ public class MainViewModel implements MainContract.ViewModel, DataCallback<Fireb
 
         AlertDialog mDialog = mBuilder.create();
         mDialog.show();
-    }
-
-    public void getAllFriend() {
-        final List<User> mUserList = new ArrayList<>();
-        final DatabaseReference mReference = FirebaseDatabase.getInstance().getReference();
-        mReference.child(User.UserEntity.USERS).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                mUserList.clear();
-                for (DataSnapshot data : dataSnapshot.getChildren()) {
-                    String id = data.getKey();
-                    String name = (String) data.child(User.UserEntity.DISPLAYNAME).getValue();
-                    String email = (String) data.child(User.UserEntity.EMAIL).getValue();
-                    String avatar = (String) data.child(User.UserEntity.AVATAR).getValue();
-                    User user = new User.Builder().setId(id)
-                            .setDisplayName(name).setEmail(email)
-                            .setAvatar(avatar).build();
-                    mUserList.add(user);
-                }
-                ShowDialogChooseFriend(mUserList);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
     }
 }

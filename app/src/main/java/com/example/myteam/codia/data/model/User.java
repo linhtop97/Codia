@@ -35,6 +35,23 @@ public class User implements Parcelable {
         this.mStatus = builder.mStatus;
     }
 
+    public User clone() {
+        User user = new User();
+        user.mId = this.mId;
+        user.mAvatar = this.mAvatar;
+        user.mCover = this.mCover;
+        user.mDateCreated = this.mDateCreated;
+        user.mDisplayName = this.mDisplayName;
+        user.mEmail = this.mEmail;
+        user.mAddress = this.mAddress;
+        user.mIsOnline = this.mIsOnline;
+        user.mLastLogin = this.mLastLogin;
+        user.mDescription = this.mDescription;
+        user.mRelationship = this.mRelationship;
+        user.mStatus = this.mStatus;
+        return user;
+    }
+
     protected User(Parcel in) {
         mId = in.readString();
         mAvatar = in.readString();
@@ -281,5 +298,6 @@ public class User implements Parcelable {
         public static final String DESCRIPTION = "description";
         public static final String RELATIONSHIP = "relationship";
         public static final String LASTLOGIN = "lastLogin";
+        public static final String FRIEND = "friend";
     }
 }
