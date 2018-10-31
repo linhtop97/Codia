@@ -12,6 +12,12 @@ public interface MainContract {
         void onLoginCurrentUser();
 
         void onLogout();
+
+        void setOffline();
+
+        void setOnline();
+
+        void createChat();
     }
 
     interface Presenter extends BasePresenter {

@@ -77,7 +77,9 @@ public class SearchAdapter extends ListAdapter<User> {
             mUser = element;
             displayname.setText(mUser.getDisplayName());
             email.setText(mUser.getEmail());
-            if (mUser.getAvatar() != null && !mUser.getAvatar().isEmpty())
+            if (mUser.getAvatar() == null || mUser.getAvatar().isEmpty())
+                avatar.setImageResource(R.drawable.ic_profile);
+            else
                 Picasso.get().load(mUser.getAvatar()).into(avatar);
         }
     }

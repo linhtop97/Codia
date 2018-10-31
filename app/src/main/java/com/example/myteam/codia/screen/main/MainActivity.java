@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
 
         mBinding.searchContainer.setOnClickListener(this);
+        mBinding.addButton.setOnClickListener(this);
     }
 
     private void setupBottomNav(int id) {
@@ -121,6 +122,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         true, Navigator.NavigateAnim.FADED, SearchFragment.TAG);
                 mBinding.bottomNav.setVisibility(View.GONE);
                 break;
+            case R.id.add_button:
+                mViewModel.createChat();
+                break;
         }
     }
 
@@ -153,17 +157,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onResume() {
         super.onResume();
+        mViewModel.setOnline();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         mViewModel.onLogout();
+//        mViewModel.setOffline();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
     }
 }
