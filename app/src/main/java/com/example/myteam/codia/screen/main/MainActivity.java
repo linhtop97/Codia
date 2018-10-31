@@ -157,17 +157,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onResume() {
         super.onResume();
+        mViewModel.setOnline();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         mViewModel.onLogout();
+//        mViewModel.setOffline();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
     }
 }

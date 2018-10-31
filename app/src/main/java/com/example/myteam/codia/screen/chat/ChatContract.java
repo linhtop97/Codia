@@ -31,6 +31,10 @@ public interface ChatContract {
         void getProfileSuccessful(User user);
 
         void getProfileError(int message);
+
+        void setOnline();
+
+        void setOffline();
     }
 
     interface Presenter extends BasePresenter {

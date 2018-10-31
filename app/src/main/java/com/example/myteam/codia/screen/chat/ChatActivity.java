@@ -28,14 +28,12 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.example.myteam.codia.R;
-import com.example.myteam.codia.data.model.Message;
 import com.example.myteam.codia.data.model.User;
 import com.example.myteam.codia.data.source.remote.auth.DataCallback;
 import com.example.myteam.codia.databinding.ActivityChatBinding;
 import com.example.myteam.codia.utils.navigator.Navigator;
 import com.squareup.picasso.Picasso;
 
-import java.io.ByteArrayOutputStream;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -48,6 +46,7 @@ public class ChatActivity extends AppCompatActivity implements DataCallback<User
     public static final int REQUEST_CODE_GALLERY = 1;
     public static final int REQUEST_CODE_CAMERA = 2;
     public static final int REQUEST_CODE_WRITE_EXTERNAL_STORAGE = 3;
+    public static final int REQUEST_CODE_WRITE_CAMERA = 4;
 
     private ChatViewModel mViewModel;
     private ActivityChatBinding mBinding;
@@ -166,6 +165,7 @@ public class ChatActivity extends AppCompatActivity implements DataCallback<User
     public void onStart() {
         super.onStart();
         mViewModel.onStart();
+        mViewModel.setOnline();
     }
 
     @Override
@@ -186,7 +186,7 @@ public class ChatActivity extends AppCompatActivity implements DataCallback<User
                 startActivityForResult(Intent.createChooser(intentGallery, "Select image"), REQUEST_CODE_GALLERY);
                 break;
             case R.id.btnEmoji:
-                if (!CheckPermission()) return;
+                if (!CheckPermission2()) return;
                 Intent intentCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(intentCamera, REQUEST_CODE_CAMERA);
                 break;
@@ -268,7 +268,7 @@ public class ChatActivity extends AppCompatActivity implements DataCallback<User
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                Snackbar.make(findViewById(android.R.id.content), "Please Grant Permissions",
+                Snackbar.make(findViewById(android.R.id.content), "Please grant Permissions access storage",
                         Snackbar.LENGTH_INDEFINITE).setAction("ENABLE",
                         new View.OnClickListener() {
                             @Override
@@ -288,6 +288,30 @@ public class ChatActivity extends AppCompatActivity implements DataCallback<User
         }
     }
 
+    private boolean CheckPermission2() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
+                Snackbar.make(findViewById(android.R.id.content), "Please grant Permissions access camera",
+                        Snackbar.LENGTH_INDEFINITE).setAction("ENABLE",
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                ActivityCompat.requestPermissions(ChatActivity.this,
+                                        new String[]{Manifest.permission.CAMERA},
+                                        REQUEST_CODE_WRITE_CAMERA);
+                            }
+                        }).show();
+            } else {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA},
+                        REQUEST_CODE_WRITE_CAMERA);
+            }
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], int[] grantResults) {
         switch (requestCode) {
@@ -295,7 +319,29 @@ public class ChatActivity extends AppCompatActivity implements DataCallback<User
                 if ((grantResults.length > 0) && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Toast.makeText(this, "Accepted permission", Toast.LENGTH_SHORT).show();
                 } else {
-                    Snackbar.make(findViewById(android.R.id.content), "Enable Permissions from settings",
+                    Snackbar.make(findViewById(android.R.id.content), "Enable Permissions Storage from settings",
+                            Snackbar.LENGTH_INDEFINITE).setAction("ENABLE",
+                            new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Intent intent = new Intent();
+                                    intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                                    intent.addCategory(Intent.CATEGORY_DEFAULT);
+                                    intent.setData(Uri.parse("package:" + getPackageName()));
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+                                    startActivity(intent);
+                                }
+                            }).show();
+                }
+                return;
+            }
+            case REQUEST_CODE_WRITE_CAMERA: {
+                if ((grantResults.length > 0) && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(this, "Accepted permission", Toast.LENGTH_SHORT).show();
+                } else {
+                    Snackbar.make(findViewById(android.R.id.content), "Enable Permissions Camera from settings",
                             Snackbar.LENGTH_INDEFINITE).setAction("ENABLE",
                             new View.OnClickListener() {
                                 @Override

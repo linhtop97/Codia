@@ -13,6 +13,8 @@ import android.widget.Toast;
 import com.example.myteam.codia.R;
 import com.example.myteam.codia.data.model.Chat;
 import com.example.myteam.codia.data.model.User;
+import com.example.myteam.codia.data.source.local.sharedprf.SharedPrefsImpl;
+import com.example.myteam.codia.data.source.local.sharedprf.SharedPrefsKey;
 import com.example.myteam.codia.screen.base.adapter.ListAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -97,10 +99,10 @@ public class MessageAdapter extends ListAdapter<Chat> {
         }
 
         private void setUser(String userId) {
-            String userLogin = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            String userLoginId = new SharedPrefsImpl(mContext).get(SharedPrefsKey.PREF_USER_ID, String.class);
             final DatabaseReference mReference = FirebaseDatabase.getInstance().getReference();
 
-            mReference.child(Chat.ChatEntity.CLASS).child(userLogin).child(mChat.getId())
+            mReference.child(Chat.ChatEntity.CLASS).child(userLoginId).child(mChat.getId())
                     .addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

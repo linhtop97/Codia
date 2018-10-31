@@ -5,7 +5,6 @@ import android.content.Context;
 import android.databinding.BaseObservable;
 import android.net.Uri;
 import android.support.v7.widget.LinearLayoutManager;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.myteam.codia.R;
@@ -13,6 +12,9 @@ import com.example.myteam.codia.data.model.Message;
 import com.example.myteam.codia.data.model.User;
 import com.example.myteam.codia.data.source.local.sharedprf.SharedPrefsImpl;
 import com.example.myteam.codia.data.source.local.sharedprf.SharedPrefsKey;
+import com.example.myteam.codia.utils.DateTimeUtils;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -97,6 +99,24 @@ public class ChatViewModel extends BaseObservable implements ChatContract.ViewMo
     @Override
     public void onStop() {
 
+    }
+
+    @Override
+    public void setOffline() {
+        DatabaseReference userReference = FirebaseDatabase.getInstance()
+                .getReference().child(User.UserEntity.USERS)
+                .child(mUserLoginId);
+        userReference.child(User.UserEntity.ISONLINE).setValue(false);
+        userReference.child(User.UserEntity.LASTLOGIN).setValue(DateTimeUtils.getCurrentTime());
+    }
+
+    @Override
+    public void setOnline() {
+        DatabaseReference userReference = FirebaseDatabase.getInstance()
+                .getReference().child(User.UserEntity.USERS)
+                .child(mUserLoginId);
+        userReference.child(User.UserEntity.ISONLINE).setValue(true);
+        userReference.child(User.UserEntity.LASTLOGIN).setValue(DateTimeUtils.getCurrentTime());
     }
 
     @Override

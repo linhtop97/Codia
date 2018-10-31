@@ -13,6 +13,10 @@ public interface MainContract {
 
         void onLogout();
 
+        void setOffline();
+
+        void setOnline();
+
         void createChat();
     }
 
