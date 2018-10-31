@@ -137,11 +137,70 @@
                         android:layout_marginTop="@dimen/dp_24">
 
                         <LinearLayout
+                            android:visibility="gone"
                             android:id="@+id/add_friend_button"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
                             bind:layout_constraintLeft_toLeftOf="parent"
+                            bind:layout_constraintRight_toLeftOf="@id/add_friend_requested"
+                            bind:layout_constraintTop_toTopOf="parent">
+
+                            <ImageButton
+                                android:layout_width="@dimen/dp_24"
+                                android:layout_height="@dimen/dp_24"
+                                android:layout_gravity="center_horizontal"
+                                android:background="@null"
+                                android:clickable="false"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/ic_add_friend" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/dp_4"
+                                android:clickable="false"
+                                android:text="@string/add_friend"
+                                android:textColor="@color/textViewColorSecondary"
+                                android:textSize="@dimen/sp_12" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:visibility="gone"
+                            android:id="@+id/add_friend_requested"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            bind:layout_constraintLeft_toRightOf="@id/add_friend_button"
+                            bind:layout_constraintRight_toLeftOf="@id/answer_friend_requested"
+                            bind:layout_constraintTop_toTopOf="parent">
+
+                            <ImageButton
+                                android:layout_width="@dimen/dp_24"
+                                android:layout_height="@dimen/dp_24"
+                                android:layout_gravity="center_horizontal"
+                                android:background="@null"
+                                android:clickable="false"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/ic_friend_requested" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/dp_4"
+                                android:clickable="false"
+                                android:text="@string/requested"
+                                android:textColor="@color/textViewColorSecondary"
+                                android:textSize="@dimen/sp_12" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:visibility="gone"
+                            android:id="@+id/answer_friend_requested"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            bind:layout_constraintLeft_toRightOf="@id/add_friend_requested"
                             bind:layout_constraintRight_toLeftOf="@id/friend_button"
                             bind:layout_constraintTop_toTopOf="parent">
 
@@ -150,24 +209,28 @@
                                 android:layout_height="@dimen/dp_24"
                                 android:layout_gravity="center_horizontal"
                                 android:background="@null"
+                                android:clickable="false"
                                 android:scaleType="fitXY"
-                                android:src="@drawable/ic_add_friend" />
+                                android:src="@drawable/ic_friend_requested" />
 
                             <TextView
+                                android:id="@+id/text_add_friend"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/dp_4"
-                                android:text="@string/add_friend"
+                                android:clickable="false"
+                                android:text="@string/answer"
                                 android:textColor="@color/textViewColorSecondary"
                                 android:textSize="@dimen/sp_12" />
                         </LinearLayout>
 
                         <LinearLayout
+                            android:visibility="gone"
                             android:id="@+id/friend_button"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
-                            bind:layout_constraintLeft_toRightOf="@id/add_friend_button"
+                            bind:layout_constraintLeft_toRightOf="@id/answer_friend_requested"
                             bind:layout_constraintRight_toLeftOf="@id/message_button"
                             bind:layout_constraintTop_toTopOf="parent">
 
@@ -176,6 +239,7 @@
                                 android:layout_height="@dimen/dp_24"
                                 android:layout_gravity="center_horizontal"
                                 android:background="@null"
+                                android:clickable="false"
                                 android:scaleType="fitXY"
                                 android:src="@drawable/ic_friend_black" />
 
@@ -183,6 +247,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/dp_4"
+                                android:clickable="false"
                                 android:text="@string/friend"
                                 android:textColor="@color/textViewColorSecondary"
                                 android:textSize="@dimen/sp_12" />
@@ -202,6 +267,7 @@
                                 android:layout_height="@dimen/dp_24"
                                 android:layout_gravity="center_horizontal"
                                 android:background="@null"
+                                android:clickable="false"
                                 android:scaleType="fitXY"
                                 android:src="@drawable/ic_message_black" />
 
@@ -209,12 +275,14 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/dp_4"
+                                android:clickable="false"
                                 android:text="@string/message"
                                 android:textColor="@color/textViewColorSecondary"
                                 android:textSize="@dimen/sp_12" />
                         </LinearLayout>
 
                         <LinearLayout
+                            android:visibility="gone"
                             android:id="@+id/plan_button"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -228,6 +296,7 @@
                                 android:layout_height="@dimen/dp_24"
                                 android:layout_gravity="center_horizontal"
                                 android:background="@null"
+                                android:clickable="false"
                                 android:scaleType="fitXY"
                                 android:src="@drawable/ic_plan" />
 
@@ -235,12 +304,14 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/dp_4"
+                                android:clickable="false"
                                 android:text="@string/plan"
                                 android:textColor="@color/textViewColorSecondary"
                                 android:textSize="@dimen/sp_12" />
                         </LinearLayout>
 
                         <LinearLayout
+                            android:visibility="gone"
                             android:id="@+id/edit_profile_button"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -254,6 +325,7 @@
                                 android:layout_height="@dimen/dp_24"
                                 android:layout_gravity="center_horizontal"
                                 android:background="@null"
+                                android:clickable="false"
                                 android:scaleType="fitXY"
                                 android:src="@drawable/ic_edit" />
 
@@ -261,6 +333,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/dp_4"
+                                android:clickable="false"
                                 android:text="@string/edit_profile"
                                 android:textColor="@color/textViewColorSecondary"
                                 android:textSize="@dimen/sp_12" />
@@ -280,6 +353,7 @@
                                 android:layout_height="@dimen/dp_24"
                                 android:layout_gravity="center_horizontal"
                                 android:background="@null"
+                                android:clickable="false"
                                 android:scaleType="fitXY"
                                 android:src="@drawable/ic_more_option_horizontal_black" />
 
@@ -287,17 +361,63 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/dp_4"
+                                android:clickable="false"
                                 android:text="@string/more"
                                 android:textColor="@color/textViewColorSecondary"
                                 android:textSize="@dimen/sp_12" />
                         </LinearLayout>
                     </android.support.constraint.ConstraintLayout>
 
+                    <android.support.constraint.ConstraintLayout
+                        android:visibility="gone"
+                        android:layout_marginTop="@dimen/dp_8"
+                        android:id="@+id/confirm_friend_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/button_container"
+                        android:background="@drawable/custom_message_send"
+                        android:padding="@dimen/dp_8">
+
+                        <TextView
+                            android:id="@+id/text_confirm_friend"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/confirm_friend"
+                            bind:layout_constraintLeft_toLeftOf="parent"
+                            bind:layout_constraintRight_toRightOf="parent"
+                            bind:layout_constraintTop_toTopOf="parent" />
+
+                        <Button
+                            android:layout_marginTop="@dimen/dp_8"
+                            android:id="@+id/accept_button"
+                            android:layout_width="@dimen/dp_0"
+                            android:layout_height="@dimen/dp_32"
+                            android:background="@drawable/accept_button_background"
+                            android:text="@string/accept"
+                            android:textAllCaps="false"
+                            android:textColor="@android:color/white"
+                            bind:layout_constraintLeft_toLeftOf="parent"
+                            bind:layout_constraintRight_toLeftOf="@id/decline_button"
+                            bind:layout_constraintTop_toBottomOf="@id/text_confirm_friend" />
+
+                        <Button
+                            android:id="@+id/decline_button"
+                            android:layout_width="@dimen/dp_0"
+                            android:layout_height="@dimen/dp_32"
+                            android:layout_marginLeft="@dimen/dp_32"
+                            android:background="@drawable/decline_button_background"
+                            android:text="@string/decline"
+                            android:textAllCaps="false"
+                            bind:layout_constraintLeft_toRightOf="@id/accept_button"
+                            bind:layout_constraintRight_toRightOf="parent"
+                            bind:layout_constraintTop_toTopOf="@id/accept_button" />
+                    </android.support.constraint.ConstraintLayout>
+
                     <android.support.v7.widget.CardView
                         android:id="@+id/infor_container"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/button_container"
+                        android:layout_below="@id/confirm_friend_container"
                         android:layout_margin="@dimen/dp_4">
 
                         <LinearLayout
@@ -408,22 +528,23 @@
                 </RelativeLayout>
 
                 <android.support.v7.widget.RecyclerView
-                    android:background="@color/textViewColorSecondary"
                     android:id="@+id/recycler"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_16" />
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:background="@color/textViewColorSecondary" />
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
 
         <ImageButton
+            android:id="@+id/fab"
             android:layout_width="@dimen/dp_56"
             android:layout_height="@dimen/dp_56"
             android:layout_gravity="bottom|end"
             android:layout_margin="@dimen/dp_16"
-            android:padding="@dimen/dp_16"
             android:background="@drawable/button_shadow_fab"
             android:onClick="@{()-> viewModel.onAddTimeLineClick()}"
+            android:padding="@dimen/dp_16"
             android:src="@drawable/ic_add" />
     </android.support.design.widget.CoordinatorLayout>
 </layout>

@@ -4,6 +4,7 @@ import com.example.myteam.codia.data.model.Post;
 import com.example.myteam.codia.data.source.remote.auth.DataCallback;
 import com.example.myteam.codia.screen.base.BasePresenter;
 import com.example.myteam.codia.screen.base.BaseViewModel;
+import com.example.myteam.codia.screen.friend.FriendCallBack;
 
 import java.util.List;
 
@@ -15,7 +16,9 @@ public interface ProfileContract {
 
         void onAddTimeLineClick();
 
-        void onAddFriendClick();
+        void onAddFriendClick(String uidUser, String userReceive, FriendCallBack callBack);
+
+        void onCancelRequestFriendClick();
 
         void onFriendClick();
 

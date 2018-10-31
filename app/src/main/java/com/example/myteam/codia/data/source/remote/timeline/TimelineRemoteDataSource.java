@@ -23,7 +23,7 @@ import java.util.List;
 
 public class TimelineRemoteDataSource implements TimelineDataSource.RemoteDataSource {
 
-    private static final String TAG = "AuthenicationRemoteData";
+    private static final String TAG = "TimelineRemoteDataSourc";
     protected FirebaseAuth mFirebaseAuth;
     private DatabaseReference mDatabaseReference;
     private SharedPrefsImpl mSharedPrefs;
@@ -70,46 +70,36 @@ public class TimelineRemoteDataSource implements TimelineDataSource.RemoteDataSo
         final List<Post> posts = new ArrayList<>();
         //get list all uer post at here
         if (!TextUtils.isEmpty(uidUser)) {
-            Runnable r = new Runnable() {
+            DatabaseReference ref = mDatabaseReference.child(Post.PostEntity.TIME_LINE).child(uidUser);
+            ref.orderByChild(Post.PostEntity.DATE_CREATED).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for (DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
+                        String id = childDataSnapshot.getKey();
+                        String uidUser = (String) childDataSnapshot.child(Post.PostEntity.UID_USER).getValue();
+                        String dateCreated = (String) childDataSnapshot.child(Post.PostEntity.DATE_CREATED).getValue();
+                        String content = (String) childDataSnapshot.child(Post.PostEntity.CONTENT).getValue();
+                        Boolean edited = (Boolean) childDataSnapshot.child(Post.PostEntity.IS_EDITED).getValue();
+                        String image = (String) childDataSnapshot.child(Post.PostEntity.IMAGE).getValue();
+                        String privacy = (String) childDataSnapshot.child(Post.PostEntity.PRIVACY).getValue();
+                        Post post = new Post.Builder().setId(id)
+                                .setUidUser(uidUser)
+                                .setDateCreated(dateCreated)
+                                .setContent(content)
+                                .setEdited(edited)
+                                .setImage(image)
+                                .setPrivacy(privacy)
+                                .build();
+                        posts.add(post);
+                    }
+                    callback.onGetDataSuccess(posts);
+                }
 
                 @Override
-                public void run() {
-                    DatabaseReference ref = mDatabaseReference.child(Post.PostEntity.TIME_LINE).child(uidUser);
-                    ref.orderByChild(Post.PostEntity.DATE_CREATED).addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            for (DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
-                                String id = childDataSnapshot.getKey();
-                                String uidUser = (String) childDataSnapshot.child(Post.PostEntity.UID_USER).getValue();
-                                String dateCreated = (String) childDataSnapshot.child(Post.PostEntity.DATE_CREATED).getValue();
-                                String content = (String) childDataSnapshot.child(Post.PostEntity.CONTENT).getValue();
-                                Boolean edited = (Boolean) childDataSnapshot.child(Post.PostEntity.IS_EDITED).getValue();
-                                String image = (String) childDataSnapshot.child(Post.PostEntity.IMAGE).getValue();
-                                String privacy = (String) childDataSnapshot.child(Post.PostEntity.PRIVACY).getValue();
-                                Post post = new Post.Builder().setId(id)
-                                        .setUidUser(uidUser)
-                                        .setDateCreated(dateCreated)
-                                        .setContent(content)
-                                        .setEdited(edited)
-                                        .setImage(image)
-                                        .setPrivacy(privacy)
-                                        .build();
-                                posts.add(post);
-                            }
-                            callback.onGetDataSuccess(posts);
-                        }
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
                 }
-            };
-            Thread thread = new Thread(r);
-            thread.start();
-
-
+            });
         }
     }
 }

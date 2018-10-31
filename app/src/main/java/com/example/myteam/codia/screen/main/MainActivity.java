@@ -151,19 +151,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onStart() {
         super.onStart();
-        mViewModel.onLoginCurrentUser();
+    //    mViewModel.onLoginCurrentUser();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        mViewModel.setOnline();
+      //  mViewModel.setOnline();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        mViewModel.onLogout();
+ //       mViewModel.onLogout();
 //        mViewModel.setOffline();
     }
 

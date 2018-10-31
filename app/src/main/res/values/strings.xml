@@ -60,6 +60,16 @@
     <string name="special_friend">Special Friends</string>
     <string name="create_post_failed">Create post failed</string>
     <string name="up_loading">Up loading…</string>
-
     <string name="title_create_group_chat">Choose people for Group</string>
+    <string name="accept">Accept</string>
+    <string name="decline">Decline</string>
+    <string name="friend_request">Friends request</string>
+    <string name="cancel_request">Cancel request</string>
+    <string name="friend_request_was_sent">Friend request was sent!</string>
+    <string name="friend_request_canceled">Friend request canceled!</string>
+    <string name="requested">Requested</string>
+    <string name="friend_request_failed">Friend request failed!</string>
+    <string name="answer">Answer</string>
+    <string name="confirm_friend">Confirm friend</string>
+    >>>>>>> create friend request
 </resources>

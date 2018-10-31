@@ -9,7 +9,6 @@ import com.example.myteam.codia.MainApplication;
 import com.example.myteam.codia.R;
 import com.example.myteam.codia.data.model.User;
 import com.example.myteam.codia.data.source.local.sharedprf.SharedPrefsImpl;
-import com.example.myteam.codia.data.source.local.sharedprf.SharedPrefsKey;
 import com.example.myteam.codia.screen.authentication.confirm.CreateUserCallback;
 import com.example.myteam.codia.screen.authentication.register.EmailExistsCallback;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -46,7 +45,7 @@ public class AuthenicationRemoteDataSource implements AuthenicationDataSource.Re
         DatabaseReference userReference = FirebaseDatabase.getInstance()
                 .getReference();
         userReference.child(User.UserEntity.USERS)
-                .child(mSharedPrefs.get(SharedPrefsKey.PREF_USER_ID, String.class))
+                .child(userId)
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
