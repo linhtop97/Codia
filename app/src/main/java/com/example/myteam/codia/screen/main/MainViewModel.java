@@ -154,8 +154,7 @@ public class MainViewModel implements MainContract.ViewModel, DataCallback<Fireb
                             String id = data.getKey();
                             long since = (long) data.child(Friend.FriendEntity.SINCE).getValue();
                             Friend friend = new Friend();
-                            friend.Id = id;
-                            friend.Since = String.valueOf(since);
+                            friend.setIdFriend(id);
                             mFriendList.add(friend);
                         }
                         ShowDialogChooseFriend(mFriendList);
@@ -181,7 +180,7 @@ public class MainViewModel implements MainContract.ViewModel, DataCallback<Fireb
         for (int i = 0; i < mUserList.size(); i++) {
             final DatabaseReference mReference = FirebaseDatabase.getInstance().getReference();
             final int finalI = i;
-            mReference.child(User.UserEntity.USERS).child(mUserList.get(i).Id)
+            mReference.child(User.UserEntity.USERS).child(mUserList.get(i).getIdFriend())
                     .addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -196,7 +195,7 @@ public class MainViewModel implements MainContract.ViewModel, DataCallback<Fireb
                     });
         }
 
-        AlertDialog.Builder mBuilder = new AlertDialog.Builder(mContext);
+        final AlertDialog.Builder mBuilder = new AlertDialog.Builder(mContext);
         mBuilder.setTitle(R.string.title_create_group_chat);
         mBuilder.setMultiChoiceItems(mDisplayNameList, mCheckedItem, new DialogInterface.OnMultiChoiceClickListener() {
             @Override
@@ -217,7 +216,7 @@ public class MainViewModel implements MainContract.ViewModel, DataCallback<Fireb
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 for (Integer i : mResultSelected) {
-                    mResult.add(mUserList.get(i).Id);
+                    mResult.add(mUserList.get(i).getIdFriend());
                 }
                 if (mResult.size() == 0) return;
                 else if (mResult.size() == 1) {
