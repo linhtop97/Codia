@@ -15,4 +15,5 @@ public class MainApplication extends Application {
         super.onCreate();
         sMainApplication = this;
     }
+
 }

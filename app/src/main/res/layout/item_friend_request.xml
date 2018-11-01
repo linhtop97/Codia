@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:padding="@dimen/dp_4">
+
+    <ImageView
+        android:id="@+id/img_avartar"
+        android:layout_width="@dimen/dp_64"
+        android:layout_height="@dimen/dp_64"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_display_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_8"
+        android:text="Anh linh"
+        android:textColor="@color/textViewColorPrimary"
+        android:textSize="@dimen/sp_18"
+        app:layout_constraintLeft_toRightOf="@id/img_avartar"
+        app:layout_constraintTop_toTopOf="@id/img_avartar" />
+
+    <Button
+        android:id="@+id/accept_button"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="@dimen/dp_32"
+        android:layout_marginLeft="@dimen/dp_8"
+        android:layout_marginRight="@dimen/dp_24"
+        android:layout_marginTop="@dimen/dp_4"
+        android:background="@drawable/accept_button_background"
+        android:text="@string/accept"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="@id/img_avartar"
+        app:layout_constraintLeft_toLeftOf="@id/text_display_name"
+        app:layout_constraintRight_toLeftOf="@id/decline_button"
+        app:layout_constraintTop_toBottomOf="@id/text_display_name" />
+
+    <Button
+        android:id="@+id/decline_button"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="@dimen/dp_32"
+        android:background="@drawable/decline_button_background"
+        android:text="@string/decline"
+        android:textAllCaps="false"
+        android:textColor="@color/textViewColorPrimary"
+        app:layout_constraintBottom_toBottomOf="@id/accept_button"
+        app:layout_constraintLeft_toRightOf="@id/accept_button"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/accept_button" />
+
+    <TextView
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="@dimen/dp_1"
+        android:layout_marginTop="@dimen/dp_4"
+        android:background="@color/textViewColorSecondary"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/img_avartar" />
+</android.support.constraint.ConstraintLayout>
