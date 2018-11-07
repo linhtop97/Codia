@@ -60,7 +60,7 @@ public class ProfileViewModel implements ProfileContract.ViewModel {
     }
 
     @Override
-    public void onAddFriendClick(String uidUser, String userReceive, FriendCallBack callBack) {
+    public void onAddFriendClick(String uidUser, String userReceive, FriendCallBack.FriendSentCallBack callBack) {
         //send request
         new FriendRepository(new FriendRemoteDataSource()).sentRequest(uidUser, userReceive, callBack);
 

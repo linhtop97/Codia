@@ -73,8 +73,10 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rvFriend"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:background="@color/colorBackgroundChat"
+            android:layout_height="@dimen/dp_0"
+            android:background="@android:color/white"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layout_search_friend_button" />
 
