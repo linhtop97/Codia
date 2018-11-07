@@ -44,6 +44,9 @@ public abstract class ListAdapter<T> extends RecyclerView.Adapter<RecyclerView.V
     }
 
     public void setData(List<T> data) {
+        if(mData!=null){
+            mData.clear();
+        }
         mData = data;
         notifyDataSetChanged();
     }

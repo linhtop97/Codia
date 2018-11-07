@@ -38,6 +38,7 @@
             android:name=".screen.authentication.confirm.RegisterConfirmActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".screen.profile.ProfileActivity"
             android:theme="@style/ProfileTheme" />
         <activity

@@ -22,4 +22,8 @@ public class FriendViewModel {
     public void getAllFriendRequest(DataCallback<List<User>> callback) {
         mRepository.getAllFriendRequest(mSharedPrefs.get(SharedPrefsKey.PREF_USER_ID, String.class), callback);
     }
+
+    public void acceptFriendRequest(String uiUser, String uidUserRequest, FriendCallBack.FriendAcceptCallBack callBack) {
+        mRepository.acceptFriendRequest(uiUser, uidUserRequest, callBack);
+    }
 }

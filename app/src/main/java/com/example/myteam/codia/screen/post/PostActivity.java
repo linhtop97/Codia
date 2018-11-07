@@ -177,7 +177,7 @@ public class PostActivity extends AppCompatActivity implements PrivacyBottomShee
     @Override
     public void onCreatePostSuccessful() {
         dismissDialog();
-        Toast.makeText(this, "Đăng thành công", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getString(R.string.push_successful), Toast.LENGTH_SHORT).show();
         finish();
     }
 

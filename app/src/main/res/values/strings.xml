@@ -71,5 +71,7 @@
     <string name="friend_request_failed">Friend request failed!</string>
     <string name="answer">Answer</string>
     <string name="confirm_friend">Confirm friend</string>
+    <string name="push_successful">Push Successful</string>
+    <string name="failed">Failed</string>
     >>>>>>> create friend request
 </resources>

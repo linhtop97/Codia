@@ -25,6 +25,7 @@ import com.example.myteam.codia.databinding.ActivityProfileBinding;
 import com.example.myteam.codia.screen.base.adapter.OnItemClickListener;
 import com.example.myteam.codia.screen.chat.ChatActivity;
 import com.example.myteam.codia.screen.friend.FriendCallBack;
+import com.example.myteam.codia.screen.friend.FriendViewModel;
 import com.example.myteam.codia.screen.post.PostAdapter;
 import com.example.myteam.codia.utils.Constant;
 import com.example.myteam.codia.utils.navigator.Navigator;
@@ -34,7 +35,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.List;
 
 public class ProfileActivity extends AppCompatActivity implements OnItemClickListener,
-        DataCallback<List<Post>>, View.OnClickListener, FriendCallBack, CheckFriendCallBack, UserDataCallBack {
+        DataCallback<List<Post>>, View.OnClickListener, FriendCallBack.FriendSentCallBack, FriendCallBack.FriendAcceptCallBack, CheckFriendCallBack, UserDataCallBack {
     private ActivityProfileBinding mBinding;
     private static final String TAG = "ProfileFragment";
     private User mUser;
@@ -48,6 +49,7 @@ public class ProfileActivity extends AppCompatActivity implements OnItemClickLis
     private List<Post> mPosts;
     private SharedPrefsImpl mSharedPrefs;
     private Navigator mNavigator;
+    private String mUidProfile;
 
 
     public static Intent getInstance(Context context, User user) {
@@ -76,13 +78,14 @@ public class ProfileActivity extends AppCompatActivity implements OnItemClickLis
         mViewModel.getAllUserPost(mUser.getId(), this);
         mBinding.setViewModel(mViewModel);
 
-        final String uidProflieUser = mUser.getId();
+        mUidProfile = mUser.getId();
         String uidUser = mSharedPrefs.get(SharedPrefsKey.PREF_USER_ID, String.class);
-        if (!uidUser.equals(uidProflieUser)) {
+        if (!uidUser.equals(mUidProfile)) {
             //set new user
-            mViewModel.setUserProfile(uidProflieUser, this);
+            mViewModel.setUserProfile(mUidProfile, this);
             mBinding.fab.setVisibility(View.GONE);
-            checkSendRequest(uidUser, uidProflieUser, this);
+            checkSendRequest(uidUser, mUidProfile, this);
+            mViewModel.showDialog();
         } else {
             mBinding.setUser(mUser);
             mBinding.messageButton.setVisibility(View.GONE);
@@ -152,7 +155,7 @@ public class ProfileActivity extends AppCompatActivity implements OnItemClickLis
     @Override
     protected void onResume() {
         super.onResume();
-        //mViewModel.getAllUserPost(mUser.getId(), this);
+        mViewModel.getAllUserPost(mUser.getId(), this);
 
     }
 
@@ -160,15 +163,25 @@ public class ProfileActivity extends AppCompatActivity implements OnItemClickLis
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.add_friend_button:
-                mBinding.addFriendButton.setVisibility(View.GONE);
                 mViewModel.onAddFriendClick(mSharedPrefs.get(SharedPrefsKey.PREF_USER_ID, String.class), mUser.getId(), this);
+                break;
+            case R.id.accept_button:
+                new FriendViewModel().acceptFriendRequest(mSharedPrefs.get(SharedPrefsKey.PREF_USER_ID, String.class)
+                        , mUidProfile, this);
                 break;
         }
     }
 
     @Override
     public void successful() {
-        mNavigator.showToast(R.string.friend_request_was_sent);
+        if (this instanceof FriendCallBack.FriendAcceptCallBack) {
+            mBinding.confirmFriendContainer.setVisibility(View.GONE);
+//            mBinding.addFriendButton.setVisibility(View.GONE);
+//            mBinding.friendButton.setVisibility(View.VISIBLE);
+            //mNavigator.showToast(R.string.accept);
+        } else if (this instanceof FriendCallBack.FriendSentCallBack) {
+            mNavigator.showToast(R.string.friend_request_was_sent);
+        }
     }
 
     @Override
@@ -180,18 +193,43 @@ public class ProfileActivity extends AppCompatActivity implements OnItemClickLis
     public void checkFriend(String something) {
         if (something.equals(FriendRequest.FriendRequestEntity.TYPE_SEND)) {
             mBinding.addFriendRequested.setVisibility(View.VISIBLE);
+            mBinding.confirmFriendContainer.setVisibility(View.GONE);
+            mBinding.addFriendButton.setVisibility(View.GONE);
+            mBinding.friendButton.setVisibility(View.GONE);
+            mBinding.planButton.setVisibility(View.GONE);
+            mBinding.answerFriendRequested.setVisibility(View.GONE);
+            mBinding.editProfileButton.setVisibility(View.GONE);
+            mBinding.acceptButton.setVisibility(View.GONE);
         } else if (something.equals(FriendRequest.FriendRequestEntity.TYPE_RECEIVE)) {
+            mBinding.addFriendRequested.setVisibility(View.GONE);
             mBinding.confirmFriendContainer.setVisibility(View.VISIBLE);
+            mBinding.addFriendButton.setVisibility(View.GONE);
+            mBinding.friendButton.setVisibility(View.GONE);
             mBinding.answerFriendRequested.setVisibility(View.VISIBLE);
+            mBinding.planButton.setVisibility(View.GONE);
+            mBinding.editProfileButton.setVisibility(View.GONE);
+            mBinding.acceptButton.setVisibility(View.VISIBLE);
+            mBinding.acceptButton.setOnClickListener(this);
+        } else if (something.equals(FriendRequest.FriendRequestEntity.TYPE_IS_FRIEND)) {
+            mBinding.addFriendRequested.setVisibility(View.GONE);
+            mBinding.confirmFriendContainer.setVisibility(View.GONE);
+            mBinding.addFriendButton.setVisibility(View.GONE);
+            mBinding.friendButton.setVisibility(View.VISIBLE);
+            mBinding.planButton.setVisibility(View.GONE);
+            mBinding.editProfileButton.setVisibility(View.GONE);
+            mBinding.acceptButton.setVisibility(View.GONE);
+            mBinding.answerFriendRequested.setVisibility(View.GONE);
         } else if (something.equals(FriendRequest.FriendRequestEntity.TYPE_NOT_YET)) {
+            mBinding.addFriendRequested.setVisibility(View.GONE);
+            mBinding.confirmFriendContainer.setVisibility(View.GONE);
             mBinding.addFriendButton.setVisibility(View.VISIBLE);
+            mBinding.friendButton.setVisibility(View.GONE);
+            mBinding.planButton.setVisibility(View.GONE);
+            mBinding.editProfileButton.setVisibility(View.GONE);
+            mBinding.acceptButton.setVisibility(View.GONE);
+            mBinding.answerFriendRequested.setVisibility(View.GONE);
         }
-//        else if (something.equals(FriendRequest.FriendRequestEntity.TYPE_IS_FRIEND)) {
-//            mBinding.confirmFriendContainer.setVisibility(View.GONE);
-//            mBinding.answerFriendRequested.setVisibility(View.GONE);
-//            mBinding.addFriendRequested.setVisibility(View.GONE);
-//            mBinding.addFriendButton.setVisibility(View.GONE);
-//        }
+        mViewModel.dismissDialog();
     }
 
     @Override

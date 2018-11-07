@@ -16,7 +16,7 @@ public interface ProfileContract {
 
         void onAddTimeLineClick();
 
-        void onAddFriendClick(String uidUser, String userReceive, FriendCallBack callBack);
+        void onAddFriendClick(String uidUser, String userReceive, FriendCallBack.FriendSentCallBack callBack);
 
         void onCancelRequestFriendClick();
 
