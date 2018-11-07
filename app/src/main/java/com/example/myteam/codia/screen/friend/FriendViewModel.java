@@ -23,7 +23,11 @@ public class FriendViewModel {
         mRepository.getAllFriendRequest(mSharedPrefs.get(SharedPrefsKey.PREF_USER_ID, String.class), callback);
     }
 
-    public void acceptFriendRequest(String uiUser, String uidUserRequest, FriendCallBack.FriendAcceptCallBack callBack) {
+    public void acceptFriendRequest(String uiUser, String uidUserRequest, FriendCallBack.FriendAnswerCallBack callBack) {
         mRepository.acceptFriendRequest(uiUser, uidUserRequest, callBack);
+    }
+
+    public void declineFriendRequest(String uiUser, String uidUserRequest, FriendCallBack.FriendAnswerCallBack callBack) {
+        mRepository.declineFriendRequest(uiUser, uidUserRequest, callBack);
     }
 }

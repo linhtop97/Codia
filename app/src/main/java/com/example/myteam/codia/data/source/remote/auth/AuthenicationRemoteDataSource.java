@@ -11,6 +11,7 @@ import com.example.myteam.codia.data.model.User;
 import com.example.myteam.codia.data.source.local.sharedprf.SharedPrefsImpl;
 import com.example.myteam.codia.screen.authentication.confirm.CreateUserCallback;
 import com.example.myteam.codia.screen.authentication.register.EmailExistsCallback;
+import com.example.myteam.codia.screen.profile.UserDataCallBack;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -42,9 +43,7 @@ public class AuthenicationRemoteDataSource implements AuthenicationDataSource.Re
 
     @Override
     public void getUserCodia(String userId, final DataCallback<User> callback) {
-        DatabaseReference userReference = FirebaseDatabase.getInstance()
-                .getReference();
-        userReference.child(User.UserEntity.USERS)
+       mDatabaseReference.child(User.UserEntity.USERS)
                 .child(userId)
                 .addValueEventListener(new ValueEventListener() {
                     @Override
@@ -76,6 +75,43 @@ public class AuthenicationRemoteDataSource implements AuthenicationDataSource.Re
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
                         callback.onGetDataFailed(MainApplication.getInstance().getString(R.string.get_profile_error));
+                    }
+                });
+    }
+
+    @Override
+    public void getUserCodia(String uidProfileUser, final UserDataCallBack callback) {
+        mDatabaseReference.child(User.UserEntity.USERS)
+                .child(uidProfileUser)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        String id = dataSnapshot.getKey();
+                        String avatar = (String) dataSnapshot.child(User.UserEntity.AVATAR).getValue();
+                        String cover = (String) dataSnapshot.child(User.UserEntity.COVER).getValue();
+                        String dateCreated = (String) dataSnapshot.child(User.UserEntity.DATECREATED).getValue();
+                        String displayName = (String) dataSnapshot.child(User.UserEntity.DISPLAYNAME).getValue();
+                        String email = (String) dataSnapshot.child(User.UserEntity.EMAIL).getValue();
+                        String address = (String) dataSnapshot.child(User.UserEntity.ADDRESS).getValue();
+                        String description = (String) dataSnapshot.child(User.UserEntity.DESCRIPTION).getValue();
+                        String relationship = (String) dataSnapshot.child(User.UserEntity.RELATIONSHIP).getValue();
+                        String status = (String) dataSnapshot.child(User.UserEntity.STATUS).getValue();
+                        User user = new User.Builder().setId(id)
+                                .setAvatar(avatar)
+                                .setCover(cover)
+                                .setDateCreated(dateCreated)
+                                .setDisplayName(displayName)
+                                .setEmail(email)
+                                .setAddress(address)
+                                .setDescription(description)
+                                .setRelationship(relationship)
+                                .setStatus(status)
+                                .build();
+                        callback.getUserCodiaSuccessful(user);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
                     }
                 });
     }

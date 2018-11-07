@@ -31,7 +31,17 @@ public class FriendRepository implements FriendDataSource.RemoteDataSource {
     }
 
     @Override
-    public void acceptFriendRequest(String uidUser, String uidUserRequest, FriendCallBack.FriendAcceptCallBack callBack) {
+    public void acceptFriendRequest(String uidUser, String uidUserRequest, FriendCallBack.FriendAnswerCallBack callBack) {
         mFriendRemoteDataSource.acceptFriendRequest(uidUser, uidUserRequest, callBack);
+    }
+
+    @Override
+    public void declineFriendRequest(String uidUser, String uidUserRequest, FriendCallBack.FriendAnswerCallBack callBack) {
+        mFriendRemoteDataSource.declineFriendRequest(uidUser, uidUserRequest, callBack);
+    }
+
+    @Override
+    public void getAllFriend(String uidUser, DataCallback<List<User>> callback) {
+        mFriendRemoteDataSource.getAllFriend(uidUser, callback);
     }
 }

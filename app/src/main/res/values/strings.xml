@@ -73,5 +73,7 @@
     <string name="confirm_friend">Confirm friend</string>
     <string name="push_successful">Push Successful</string>
     <string name="failed">Failed</string>
+    <string name="online">Online</string>
+    <string name="offline">Offline</string>
     >>>>>>> create friend request
 </resources>

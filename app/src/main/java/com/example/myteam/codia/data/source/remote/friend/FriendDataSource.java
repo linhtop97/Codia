@@ -15,6 +15,10 @@ public interface FriendDataSource {
 
         void checkFriend(String uidUser, String uidProfileUser, CheckFriendCallBack callBack);
 
-        void acceptFriendRequest(String uidUser, String uidUserRequest, FriendCallBack.FriendAcceptCallBack callBack);
+        void acceptFriendRequest(String uidUser, String uidUserRequest, FriendCallBack.FriendAnswerCallBack callBack);
+
+        void declineFriendRequest(String uidUser, String uidUserRequest, FriendCallBack.FriendAnswerCallBack callBack);
+
+        void getAllFriend(String uidUser, DataCallback<List<User>> callback);
     }
 }

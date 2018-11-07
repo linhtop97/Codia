@@ -67,7 +67,7 @@ public class FriendRequestAdapter extends ListAdapter<User> {
             mDeclineButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    mListener.onDecline();
+                    mListener.onDecline(getAdapterPosition());
                 }
             });
         }
@@ -101,6 +101,6 @@ public class FriendRequestAdapter extends ListAdapter<User> {
     public interface OnFriendRequestClickListener {
         void onAccept(int position);
 
-        void onDecline();
+        void onDecline(int position);
     }
 }
