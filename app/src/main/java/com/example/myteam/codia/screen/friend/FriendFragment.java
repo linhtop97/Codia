@@ -23,7 +23,7 @@ import com.example.myteam.codia.utils.navigator.Navigator;
 
 import java.util.List;
 
-public class FriendFragment extends Fragment implements FriendRequestAdapter.OnFriendRequestClickListener, DataCallback<List<User>>, FriendCallBack.FriendAcceptCallBack {
+public class FriendFragment extends Fragment implements FriendRequestAdapter.OnFriendRequestClickListener, DataCallback<List<User>>, FriendCallBack.FriendAnswerCallBack {
 
     public static final String TAG = "FriendFragment";
     private FragmentFriendBinding mBinding;
@@ -75,8 +75,11 @@ public class FriendFragment extends Fragment implements FriendRequestAdapter.OnF
     }
 
     @Override
-    public void onDecline() {
-
+    public void onDecline(int position) {
+        mPosition = position;
+        String uidUserRequest = mUsers.get(position).getId();
+        mViewModel.declineFriendRequest(mSharedPrefs.get(SharedPrefsKey.PREF_USER_ID, String.class)
+                , uidUserRequest, this);
     }
 
     @Override

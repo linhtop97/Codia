@@ -141,7 +141,7 @@ public class FriendRemoteDataSource implements FriendDataSource.RemoteDataSource
     }
 
     @Override
-    public void acceptFriendRequest(final String uidUser, final String uidUserRequest, final FriendCallBack.FriendAcceptCallBack callBack) {
+    public void acceptFriendRequest(final String uidUser, final String uidUserRequest, final FriendCallBack.FriendAnswerCallBack callBack) {
         Long since = DateTimeUtils.getCurrentTime();
         final Friend friend = new Friend(null, null, since);
         mDatabaseReference.child(Friend.FriendEntity.FRIENDS).child(uidUser).child(uidUserRequest).setValue(friend, new DatabaseReference.CompletionListener() {
@@ -156,6 +156,34 @@ public class FriendRemoteDataSource implements FriendDataSource.RemoteDataSource
                 } else {
                     callBack.failed(R.string.failed);
                 }
+            }
+        });
+    }
+
+    @Override
+    public void declineFriendRequest(String uidUser, String uidUserRequest, FriendCallBack.FriendAnswerCallBack callBack) {
+        mDatabaseReference.child(FriendRequest.FriendRequestEntity.FRIEND_REQUEST).child(uidUser).child(uidUserRequest).removeValue();
+        mDatabaseReference.child(FriendRequest.FriendRequestEntity.FRIEND_REQUEST).child(uidUserRequest).child(uidUser).removeValue();
+        callBack.successful();
+    }
+
+    @Override
+    public void getAllFriend(String uidUser, final DataCallback<List<User>> callback) {
+        mDatabaseReference.child(Friend.FriendEntity.FRIENDS).child(uidUser).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                List<User> users = new ArrayList<>();
+                for (DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
+                    String id = childDataSnapshot.getKey();
+                    User user = new User.Builder().setId(id).build();
+                    users.add(user);
+                }
+                callback.onGetDataSuccess(users);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                callback.onGetDataFailed("can't get all friend");
             }
         });
     }

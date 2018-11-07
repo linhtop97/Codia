@@ -8,7 +8,7 @@ public interface FriendCallBack {
         void failed(int message);
     }
 
-    interface FriendAcceptCallBack {
+    interface FriendAnswerCallBack {
         void successful();
 
         void failed(int message);

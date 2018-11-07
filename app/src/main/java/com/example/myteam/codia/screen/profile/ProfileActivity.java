@@ -5,10 +5,8 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -29,23 +27,18 @@ import com.example.myteam.codia.screen.friend.FriendViewModel;
 import com.example.myteam.codia.screen.post.PostAdapter;
 import com.example.myteam.codia.utils.Constant;
 import com.example.myteam.codia.utils.navigator.Navigator;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
 public class ProfileActivity extends AppCompatActivity implements OnItemClickListener,
-        DataCallback<List<Post>>, View.OnClickListener, FriendCallBack.FriendSentCallBack, FriendCallBack.FriendAcceptCallBack, CheckFriendCallBack, UserDataCallBack {
+        DataCallback<List<Post>>, View.OnClickListener, FriendCallBack.FriendSentCallBack,
+        FriendCallBack.FriendAnswerCallBack, CheckFriendCallBack, UserDataCallBack {
     private ActivityProfileBinding mBinding;
     private static final String TAG = "ProfileFragment";
     private User mUser;
-    private List<String> stringArrayList;
-    private RecyclerView recyclerView;
     private PostAdapter mPostAdapter;
     private LinearLayoutManager mLinearLayoutManager;
-    private ActionBar mActionBar;
     private ProfileViewModel mViewModel;
-    private DatabaseReference mPostsRef;
     private List<Post> mPosts;
     private SharedPrefsImpl mSharedPrefs;
     private Navigator mNavigator;
@@ -71,8 +64,6 @@ public class ProfileActivity extends AppCompatActivity implements OnItemClickLis
             mUser = bundle.getParcelable(Constant.EXTRA_USER);
         }
         mBinding.addFriendButton.setOnClickListener(this);
-        mPostsRef = FirebaseDatabase.getInstance().getReference()
-                .child(Post.PostEntity.TIME_LINE).child(mUser.getId());
         initViews();
         mViewModel = new ProfileViewModel(this, new Navigator(this));
         mViewModel.getAllUserPost(mUser.getId(), this);
@@ -174,7 +165,7 @@ public class ProfileActivity extends AppCompatActivity implements OnItemClickLis
 
     @Override
     public void successful() {
-        if (this instanceof FriendCallBack.FriendAcceptCallBack) {
+        if (this instanceof FriendCallBack.FriendAnswerCallBack) {
             mBinding.confirmFriendContainer.setVisibility(View.GONE);
 //            mBinding.addFriendButton.setVisibility(View.GONE);
 //            mBinding.friendButton.setVisibility(View.VISIBLE);

@@ -5,6 +5,7 @@ import android.net.Uri;
 import com.example.myteam.codia.data.model.User;
 import com.example.myteam.codia.screen.authentication.confirm.CreateUserCallback;
 import com.example.myteam.codia.screen.authentication.register.EmailExistsCallback;
+import com.example.myteam.codia.screen.profile.UserDataCallBack;
 import com.google.firebase.auth.FirebaseUser;
 
 public class AuthenicationRepository implements AuthenicationDataSource.RemoteDataSource {
@@ -17,6 +18,11 @@ public class AuthenicationRepository implements AuthenicationDataSource.RemoteDa
     @Override
     public void getUserCodia(String userId, DataCallback<User> callback) {
         mRemoteDataSource.getUserCodia(userId, callback);
+    }
+
+    @Override
+    public void getUserCodia(String uidProfileUser, UserDataCallBack callback) {
+        mRemoteDataSource.getUserCodia(uidProfileUser, callback);
     }
 
     @Override

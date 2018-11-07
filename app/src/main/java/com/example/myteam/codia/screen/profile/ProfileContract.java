@@ -40,6 +40,5 @@ public interface ProfileContract {
     }
 
     interface Presenter extends BasePresenter {
-        void getAllUserPost(String uidUser, DataCallback<List<Post>> callback);
     }
 }

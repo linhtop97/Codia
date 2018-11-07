@@ -5,12 +5,15 @@ import android.net.Uri;
 import com.example.myteam.codia.data.model.User;
 import com.example.myteam.codia.screen.authentication.confirm.CreateUserCallback;
 import com.example.myteam.codia.screen.authentication.register.EmailExistsCallback;
+import com.example.myteam.codia.screen.profile.UserDataCallBack;
 import com.google.firebase.auth.FirebaseUser;
 
 public interface AuthenicationDataSource {
     interface RemoteDataSource {
 
         void getUserCodia(String userId, DataCallback<User> callback);
+
+        void getUserCodia(String uidProfileUser, UserDataCallBack callback);
 
         void checkEmailIsUsed(String email, EmailExistsCallback callback);
 
